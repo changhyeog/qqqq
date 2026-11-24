@@ -1,0 +1,3600 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내신메이트 — 고등학교 내신 완벽 대비 요약 및 예상 문제 출제기</title>
+  <meta
+    name="description"
+    content="고등학교 내신 시험 범위 텍스트와 PDF를 분석해 단원 핵심 요약, 5지선다 객관식, 조건형 서술형 문제 및 오답 복습 노트를 생성하는 학습 대비 애플리케이션"
+  />
+  <meta property="og:title" content="내신메이트 — 고등학교 내신 완벽 대비 요약 및 예상 문제 출제기" />
+  <meta
+    property="og:description"
+    content="고등학교 내신 시험 범위 텍스트와 PDF를 분석해 단원 핵심 요약, 5지선다 객관식, 조건형 서술형 문제 및 오답 복습 노트를 생성하는 학습 대비 애플리케이션"
+  />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --navy: #0F2942;
+      --navy-hover: #1E293B;
+      --blue: #1D4ED8;
+      --blue-hover: #1E40AF;
+      --blue-soft: #EFF6FF;
+      --blue-border: #BFDBFE;
+      --text: #0F172A;
+      --text-muted: #475569;
+      --text-soft: #64748B;
+      --emerald-bg: #ECFDF5;
+      --emerald-border: #6EE7B7;
+      --emerald-text: #047857;
+      --red-bg: #FEF2F2;
+      --red-border: #FCA5A5;
+      --red-text: #B91C1C;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --amber-text: #92400E;
+      --teal-border: #99F6E4;
+      --font-sans: "Plus Jakarta Sans", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "IBM Plex Mono", "Noto Sans KR", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-page);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .font-mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 16px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .topnav {
+      display: none;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .topnav a, .topnav button {
+      background: none;
+      border: 0;
+      padding: 4px 2px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s ease;
+    }
+
+    .topnav a:hover, .topnav button:hover:not(:disabled) {
+      color: var(--navy);
+    }
+
+    .topnav button:disabled {
+      color: #94A3B8;
+      cursor: default;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Main Container */
+    .main-wrap {
+      flex: 1;
+      width: 100%;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .page-head {
+      margin-bottom: 24px;
+    }
+
+    .page-kicker {
+      margin: 0 0 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.025em;
+      line-height: 1.3;
+    }
+
+    .page-sub {
+      margin: 8px 0 0;
+      font-size: 14.5px;
+      color: var(--text-muted);
+      max-width: 720px;
+      line-height: 1.65;
+    }
+
+    /* Two-Zone Workbench */
+    .workbench {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Cards & Panels */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.015em;
+    }
+
+    .panel-desc {
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .stack-lg {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .stack-md {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+
+    .label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .label-row .field-label {
+      margin-bottom: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-navy {
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .btn-navy:hover:not(:disabled) {
+      background: var(--navy-hover);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--blue-hover);
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      border-color: var(--border-strong);
+      color: #334155;
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: var(--bg-page);
+      color: var(--navy);
+    }
+
+    .btn-soft-blue {
+      background: var(--blue-soft);
+      border-color: var(--blue-border);
+      color: var(--blue);
+    }
+
+    .btn-soft-blue:hover:not(:disabled) {
+      background: #DBEAFE;
+    }
+
+    .btn-soft-slate {
+      background: var(--bg-subtle);
+      border-color: var(--border);
+      color: #334155;
+    }
+
+    .btn-soft-slate:hover:not(:disabled) {
+      background: #E2E8F0;
+    }
+
+    .btn-success {
+      background: var(--emerald-bg);
+      border-color: var(--emerald-border);
+      color: var(--emerald-text);
+    }
+
+    .btn-danger-outline {
+      background: #FFFFFF;
+      border-color: var(--red-border);
+      color: var(--red-text);
+    }
+
+    .btn-generate {
+      width: 100%;
+      padding: 13px 18px;
+      font-size: 14.5px;
+      border-radius: 10px;
+    }
+
+    .btn-link-danger {
+      background: none;
+      border: 0;
+      padding: 2px 4px;
+      font-size: 12px;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .btn-link-danger:hover {
+      color: #DC2626;
+    }
+
+    /* Subject & Difficulty Pickers */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .subject-btn {
+      padding: 8px 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-page);
+      color: #334155;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .subject-btn:hover:not(:disabled) {
+      background: var(--bg-subtle);
+      color: var(--text);
+    }
+
+    .subject-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .diff-group {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .diff-btn {
+      padding: 8px 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .diff-btn:hover:not(:disabled) {
+      color: var(--text);
+    }
+
+    .diff-btn.active {
+      background: #FFFFFF;
+      color: var(--blue);
+      border-color: rgba(203, 213, 225, 0.8);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* Upload Dropzone */
+    .dropzone {
+      border: 1px dashed var(--border-strong);
+      border-radius: 10px;
+      background: #F8FAFC;
+      padding: 13px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      margin-bottom: 12px;
+    }
+
+    .dropzone.dragging {
+      border-color: #2563EB;
+      background: rgba(239, 246, 255, 0.7);
+    }
+
+    .dropzone-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .dropzone-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .icon-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .pdf-chip {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--blue-border);
+      border-radius: 8px;
+    }
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 11px 12px;
+      border-radius: 9px;
+      border: 1px solid;
+      font-size: 12.5px;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .notice-info {
+      background: var(--blue-soft);
+      border-color: var(--blue-border);
+      color: var(--navy);
+    }
+
+    .notice-error {
+      background: var(--red-bg);
+      border-color: var(--red-border);
+      color: var(--red-text);
+    }
+
+    .notice-warn {
+      background: var(--amber-bg);
+      border-color: var(--amber-border);
+      color: var(--amber-text);
+    }
+
+    .textarea, .text-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: #FFFFFF;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.65;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .textarea {
+      resize: vertical;
+    }
+
+    .textarea:focus, .text-input:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    /* Welcome / Loading / Output Header */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .overview-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #F8FAFC;
+      padding: 16px;
+    }
+
+    .overview-item-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .overview-item-desc {
+      margin: 8px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .loading-card {
+      text-align: center;
+      padding: 44px 24px;
+    }
+
+    .spinner-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spin {
+      animation: spin 0.9s linear infinite;
+    }
+
+    .skeleton-stack {
+      max-width: 380px;
+      margin: 22px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skeleton-bar {
+      height: 11px;
+      border-radius: 6px;
+      background: #E2E8F0;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.9; }
+    }
+
+    /* Tabs */
+    .result-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--bg-subtle);
+    }
+
+    .tab-bar {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg-page);
+      color: #334155;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    /* Exam Paper Question Cards */
+    .exam-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .exam-card-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--bg-subtle);
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .pill-badge.navy {
+      background: var(--navy);
+    }
+
+    .pill-badge.red {
+      background: #DC2626;
+    }
+
+    .question-stem {
+      margin: 18px 0 0;
+      font-size: 17.5px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .stem-underline {
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-color: var(--blue);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .bogi-box {
+      margin-top: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #F8FAFC;
+      padding: 16px 18px;
+    }
+
+    .bogi-title {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+    }
+
+    .bogi-body {
+      font-size: 14.5px;
+      color: #1E293B;
+      line-height: 1.75;
+      white-space: pre-line;
+    }
+
+    .choice-list {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      padding: 13px 16px;
+      font-size: 15px;
+      color: #1E293B;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .choice-btn:hover:not(:disabled) {
+      background: rgba(239, 246, 255, 0.55);
+      border-color: #93C5FD;
+    }
+
+    .choice-btn:disabled {
+      cursor: default;
+    }
+
+    .choice-btn.selected {
+      background: var(--blue-soft);
+      border-color: var(--blue);
+      color: var(--navy);
+      box-shadow: 0 0 0 1px var(--blue);
+      font-weight: 600;
+    }
+
+    .choice-btn.correct {
+      background: rgba(236, 253, 245, 0.85);
+      border-color: #10B981;
+      color: var(--text);
+      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.4);
+      font-weight: 600;
+    }
+
+    .choice-btn.wrong-selected {
+      background: rgba(254, 242, 242, 0.85);
+      border-color: #F87171;
+      color: var(--text);
+    }
+
+    .choice-btn.dimmed {
+      background: rgba(248, 250, 252, 0.7);
+      border-color: var(--border);
+      color: var(--text-soft);
+    }
+
+    .choice-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .choice-num {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text-soft);
+      flex-shrink: 0;
+    }
+
+    .choice-text {
+      line-height: 1.65;
+    }
+
+    .card-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--bg-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* 3-Part Explanation Panel */
+    .explain-panel {
+      margin-top: 18px;
+      border-radius: 13px;
+      border: 1px solid var(--teal-border);
+      background: linear-gradient(135deg, #F0F9FF 0%, rgba(240, 253, 250, 0.82) 55%, rgba(236, 253, 245, 0.5) 100%);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .explain-divider {
+      padding-top: 16px;
+      border-top: 1px solid rgba(153, 246, 228, 0.75);
+    }
+
+    .explain-heading {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .answer-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 6px;
+      background: #0F766E;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .steps-box {
+      margin-top: 12px;
+      border-radius: 11px;
+      border: 1px solid #BAE6FD;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 14px 16px;
+    }
+
+    .steps-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #1E293B;
+      line-height: 1.65;
+    }
+
+    .step-row + .step-row {
+      margin-top: 8px;
+    }
+
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: #F0F9FF;
+      border: 1px solid #BAE6FD;
+      border-radius: 5px;
+      padding: 2px 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .wrong-item {
+      border-radius: 10px;
+      border: 1px solid rgba(186, 230, 253, 0.85);
+      background: rgba(255, 255, 255, 0.86);
+      padding: 11px 14px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #1E293B;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .wrong-item.is-right {
+      background: #FFFFFF;
+      border-color: var(--emerald-border);
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .trap-card {
+      border-radius: 11px;
+      border: 1px solid var(--amber-border);
+      background: rgba(255, 251, 235, 0.88);
+      padding: 14px;
+    }
+
+    .concept-note-card {
+      border-radius: 11px;
+      border: 1px solid #BAE6FD;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 14px;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+    }
+
+    table.clean-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    table.clean-table th {
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border);
+      padding: 11px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    table.clean-table td {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    table.clean-table tbody tr:first-child td {
+      border-top: 0;
+    }
+
+    .kw-chip {
+      display: inline-block;
+      border-radius: 6px;
+      background: #FFFFFF;
+      border: 1px solid #BAE6FD;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #F8FAFC;
+      padding: 11px 16px;
+    }
+
+    .empty-box {
+      border-radius: 16px;
+      border: 1px dashed var(--border-strong);
+      background: #FFFFFF;
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 13.5px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      background: #FFFFFF;
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 18px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    @media (min-width: 640px) {
+      .topbar-inner, .main-wrap, .footer-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .page-title {
+        font-size: 30px;
+      }
+      .overview-grid, .two-col-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .tab-bar {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 900px) {
+      .topnav {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .topbar-inner, .main-wrap, .footer-inner {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+      .workbench {
+        grid-template-columns: 410px 1fr;
+      }
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#top" class="brand">내신메이트</a>
+
+      <nav class="topnav" aria-label="학습 영역 바로가기">
+        <a href="#input-panel">시험 범위 입력</a>
+        <button type="button" data-nav-tab="summary" disabled>핵심 요약</button>
+        <button type="button" data-nav-tab="multiple-choice" disabled>객관식 문제</button>
+        <button type="button" data-nav-tab="constructed" disabled>단답·서술형</button>
+        <button type="button" data-nav-tab="review" disabled>오답 복습 노트</button>
+      </nav>
+
+      <div class="header-actions">
+        <button
+          type="button"
+          id="btn-download-html"
+          class="btn btn-outline"
+          title="더블 클릭 실행 및 단독 배포용 index.html 파일 다운로드"
+        >
+          <span>단일 HTML 저장</span>
+        </button>
+        <button
+          type="button"
+          id="btn-export-github"
+          class="btn btn-outline"
+          title="GitHub·Vercel 즉시 배포용 전체 파일(.zip) 다운로드"
+        >
+          <span id="export-btn-icon"></span>
+          <span id="export-btn-label">GitHub 소스 (.zip)</span>
+        </button>
+        <a href="#input-panel" id="btn-header-action" class="btn btn-navy">샘플 불러오기</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="main-wrap">
+    <div class="page-head">
+      <p class="page-kicker">고등학교 중간·기말고사 실전 대비 워크스페이스</p>
+      <h1 class="page-title">내신 완벽 대비 요약 및 예상 문제 출제기</h1>
+      <p class="page-sub">
+        교과서·수업 프린트 텍스트나 PDF를 입력하거나 짧은 단원명만 입력해도
+        시험 대비 핵심 요약, 5지선다 객관식, 조건형 서술형 문제, 오답 복습 노트까지 한 번에 정리합니다.
+      </p>
+    </div>
+
+    <div class="workbench">
+      <!-- Left Input Panel -->
+      <section id="input-panel" class="panel" aria-label="시험 범위 입력 영역">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">시험 범위 설정 및 자료 입력</h2>
+            <p class="panel-desc">과목과 난이도를 고른 뒤 본문, 단원명 또는 파일을 올려 주세요.</p>
+          </div>
+          <button type="button" id="btn-load-sample" class="btn btn-soft-blue">
+            <span id="sample-btn-icon"></span>
+            <span>시연용 샘플 불러오기</span>
+          </button>
+        </div>
+
+        <div class="stack-lg" style="margin-top: 18px;">
+          <!-- 1. 과목 선택 -->
+          <div>
+            <span class="field-label">1. 과목 선택</span>
+            <div id="subject-grid" class="subject-grid"></div>
+          </div>
+
+          <!-- 2. 난이도 선택 -->
+          <div>
+            <div class="label-row">
+              <span class="field-label">2. 난이도 선택</span>
+              <span id="difficulty-desc" style="font-size: 12px; color: var(--text-soft);"></span>
+            </div>
+            <div id="difficulty-group" class="diff-group"></div>
+          </div>
+
+          <!-- 3. 파일 업로드 + 텍스트 입력 -->
+          <div>
+            <div class="label-row">
+              <label for="exam-content-textarea" class="field-label">3. 시험 범위 내용 입력</label>
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-soft);">
+                <span id="char-count" class="font-mono">0자</span>
+                <button type="button" id="btn-clear-text" class="btn-link-danger hidden">비우기</button>
+              </div>
+            </div>
+
+            <div id="file-dropzone" class="dropzone">
+              <input
+                id="file-input"
+                type="file"
+                accept=".txt,.md,.csv,.pdf,text/plain,text/markdown,text/csv,application/pdf"
+                class="hidden"
+              />
+              <div class="dropzone-row">
+                <div class="dropzone-info">
+                  <div class="icon-box" id="upload-icon-box"></div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #1E293B;">학습지·교과서 파일 업로드</div>
+                    <div style="font-size: 11px; color: var(--text-soft);">.txt, .md, .csv (자동 채우기) · .pdf (문서 첨부 분석)</div>
+                  </div>
+                </div>
+                <button type="button" id="btn-pick-file" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">
+                  파일 선택
+                </button>
+              </div>
+              <div id="pdf-chip" class="pdf-chip hidden">
+                <div style="min-width: 0; flex: 1;">
+                  <div id="pdf-chip-name" style="font-size: 12.5px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></div>
+                  <div id="pdf-chip-size" class="font-mono" style="font-size: 11px; color: var(--text-soft);"></div>
+                </div>
+                <button type="button" id="btn-remove-pdf" class="btn-link-danger" aria-label="첨부된 PDF 제거">제거</button>
+              </div>
+            </div>
+
+            <div id="file-notice" class="notice notice-info hidden" role="status"></div>
+            <div id="sample-notice" class="notice notice-info hidden" role="status"></div>
+
+            <div id="mode-hint" style="font-size: 12px; color: var(--text-soft); margin-bottom: 6px;">
+              본문·파일이 길수록 해당 자료에 맞춘 정밀 출제가 이루어집니다.
+            </div>
+
+            <textarea
+              id="exam-content-textarea"
+              rows="10"
+              class="textarea"
+              placeholder="시험 범위 파일 업로드, 본문 붙여넣기, 또는 '단원명(예: 통합사회 시장경제의 한계)'만 입력해도 자동으로 요약과 문제가 생성됩니다."
+            ></textarea>
+          </div>
+
+          <div id="input-error-box" class="notice notice-error hidden" role="alert"></div>
+
+          <button type="button" id="btn-generate" class="btn btn-primary btn-generate" disabled>
+            <span id="generate-btn-icon"></span>
+            <span id="generate-btn-label">내신 자료 생성하기</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right Output Panel -->
+      <section id="output-panel" aria-label="내신 대비 생성 결과 영역" style="min-width: 0;">
+        <!-- Rendered dynamically by app script -->
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>내신메이트 · 고등학교 내신 시험 대비 학습 워크스페이스 (단일 HTML 무프레임워크 에디션)</span>
+      <span>GitHub 업로드 시 Vercel에서 별도 빌드 없이 즉시 배포되며, 브라우저에서 직접 열어도 동작합니다.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------------- SVG Icons (Zero external icon CDN needed) ---------------- */
+      const ICONS = {
+        download: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>',
+        check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+        book: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+        upload: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>',
+        sparkles: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+        loader: '<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>',
+        loaderLg: '<svg class="spin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>',
+        bookmark: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>',
+        bookmarkSaved: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>',
+        eye: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
+        rotate: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+        copy: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+        trash: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>',
+        checkCircle: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>',
+        xCircle: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>',
+        arrowRight: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>',
+        arrowLeft: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>',
+      };
+
+      const SUBJECT_OPTIONS = ['국어', '영어', '수학', '통합사회', '통합과학', '한국사', '기타'];
+      const DIFFICULTY_DETAILS = [
+        { value: '기본', label: '기본', description: '교과서·개념 확인 중심' },
+        { value: '실전 내신', label: '실전 내신', description: '학교 시험 기출 스타일' },
+        { value: '고난도', label: '고난도', description: '함정·변형·심화 문항' },
+      ];
+      const CHOICE_CIRCLES = ['①', '②', '③', '④', '⑤'];
+      const LOADING_MESSAGES = [
+        '시험 범위 본문 및 핵심 키워드 추출 중...',
+        '내신 출제 포인트 및 자주 꼬는 함정 분석 중...',
+        '5지선다 객관식 및 조건형 서술형 문항 구성 중...',
+        '선지별 오답 근거 및 채점 기준표 정리 중...',
+      ];
+
+      const SAMPLE_EXAM_CONTENTS = {
+        '통합과학': `[단원명] 고1 통합과학 - 화학 변화: 산과 염기, 중화 반응
+
+1. 산과 염기의 정의 및 성질
+- 산(Acid): 수용액에서 이온화하여 수소 이온(H⁺)을 내놓는 물질. 예: 염산(HCl), 황산(H₂SO₄), 아세트산(CH₃COOH).
+  · 공통 성질(산성): 신맛, 푸른색 리트머스 종이를 붉게 변화, BTB 용액 노란색, 페놀프탈레인 무색, 마그네슘 등 금속과 반응하여 수소 기체(H₂) 발생, 탄산칼슘(CaCO₃)과 반응하여 이산화탄소(CO₂) 기체 발생.
+- 염기(Base): 수용액에서 이온화하여 수산화 이온(OH⁻)을 내놓는 물질. 예: 수산화 나트륨(NaOH), 수산화 칼륨(KOH), 수산화 칼슘(Ca(OH)₂).
+  · 공통 성질(염기성): 쓴맛, 미끈거리는 촉감(단백질을 녹이는 성질), 붉은색 리트머스 종이를 푸르게 변화, BTB 용액 파란색, 페놀프탈레인 붉은색, 금속이나 탄산칼슘과 반응하지 않음.
+- 지시약 색 변화 암기 포인트:
+  · 메틸 오렌지: 산(빨) - 중성(주) - 염기(노)
+  · BTB 용액: 산(노) - 중성(초) - 염기(파)
+  · 페놀프탈레인: 산(무) - 중성(무) - 염기(빨)
+
+2. 중화 반응(Neutralization)과 알짜 이온 반응식
+- 산의 수소 이온(H⁺)과 염기의 수산화 이온(OH⁻)이 1:1의 개수비로 반응하여 물(H₂O)을 생성하고 열을 방출하는 반응.
+- 알짜 이온 반응식: H⁺ + OH⁻ → H₂O + 열(중화열)
+- 구경꾼 이온: 반응에 직접 참여하지 않고 수용액 속에 그대로 남아 있는 이온 (예: HCl과 NaOH 반응에서 Cl⁻, Na⁺).
+- 중화점 확인 방법:
+  1) 지시약의 색 변화 (BTB 용액이 초록색이 되는 지점)
+  2) 온도 변화: 중화 반응은 발열 반응이므로 완전히 중화되는 중화점에서 혼합 용액의 온도가 가장 높음.
+  3) 전류의 세기: 1가 산과 1가 염기를 같은 농도로 섞을 때 물이 생성되면서 단위 부피당 이온 수가 감소하므로 중화점에서 전류의 세기가 최소가 됨 (0이 아님에 주의! 구경꾼 이온 때문에 전류는 계속 흐름).
+
+3. 생활 속 중화 반응
+- 위산(HCl) 과다 분비 시 제산제(Mg(OH)₂ 등 약한 염기) 복용
+- 벌레 물린 곳(포름산)에 암모니아수(약염기) 도포
+- 생선 비린내(염기성 아민류) 제거를 위해 레몬즙(산성) 사용
+- 산성화된 토양에 석회가루(염기성)를 뿌려 중화`,
+
+        '국어': `[단원명] 고1 국어 - 문학의 갈래와 표현(윤동주 <서시>) / 국어의 음운 변동
+
+1. 윤동주 <서시(序詩)> 핵심 정리
+- 갈래: 자유시, 서정시 / 성격: 고백적, 성찰적, 의지적
+- 제재: 밤하늘, 별, 바람 / 주제: 부끄럼 없는 삶에 대한 소망과 현실 극복 의지
+- 핵심 시어 대조: '하늘', '별'(이상, 순수, 희망) vs '바람', '밤'(시련, 고난, 일제의 탄압).
+- '스치운다'(피동 표현)를 통해 암담한 시대 현실 속에서도 빛나는 양심의 시련을 형상화함.
+- 과거-현재-미래의 시간적 추이에 따른 시상 전개 후 마지막 연에서 '오늘 밤'이라는 현재로 회귀하여 현실 인식 강조.
+
+2. 국어의 음운 변동 핵심 정리
+- 교체: 음절의 끝소리 규칙(ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ,ㅇ 7개 자음만 발음), 비음화(ㄱ,ㄷ,ㅂ + ㄴ,ㅁ → ㅇ,ㄴ,ㅁ / ㅁ,ㅇ + ㄹ → ㅁ,ㅇ + ㄴ), 유음화(ㄴ+ㄹ 또는 ㄹ+ㄴ → ㄹ+ㄹ, 단 '의견란[의견난]' 예외 주의), 구개음화(ㄷ,ㅌ + 형식형태소 '이' → ㅈ,ㅊ, 예: 같이[가치], 단 실질형태소 '밭이랑'은 [반니랑]으로 구개음화 X), 된소리되기.
+- 탈락: 자음군 단순화(닭[닥], 흙[흑]), ㅎ 탈락(좋아[조아]).
+- 축약: 거센소리되기(ㅎ + ㄱ,ㄷ,ㅂ,ㅈ → ㅋ,ㅌ,ㅍ,ㅊ, 예: 좋다[조타], 맏형[마텽]).
+- 첨가: ㄴ 첨가(솜이불[솜니불], 한여름[한녀름]).`,
+
+        '영어': `[단원명] 고1~2 영어 내신 독해(Confirmation Bias) & 핵심 어법
+
+1. 본문 지문: Confirmation Bias in Everyday Decision-Making
+People tend to believe information that supports their pre-existing beliefs while dismissing evidence that contradicts them. This psychological phenomenon is known as confirmation bias. Rather than evaluating all available data objectively, individuals selectively search for, interpret, and recall facts in a way that reinforces what they already think is true.
+Social media algorithms further amplify this tendency. Because platforms are designed to maximize user engagement, they continuously feed users content aligned with their past clicks and likes. Consequently, people become trapped in an "echo chamber," rarely encountering opposing viewpoints. Overcoming confirmation bias requires deliberate intellectual humility: actively seeking out counterarguments and asking, "What evidence would prove me wrong?"
+
+2. 내신 어법 출제 포인트
+- 관계대명사 what vs that: "reinforces [what] they already think is true" — 선행사를 포함하는 관계대명사 what(= the thing that). 삽입절 'they already think' 뒤에 주어가 빠진 불완전한 절이므로 what 필수!
+- 능동 분사구문: "while [dismissing] evidence" / "rarely [encountering] opposing viewpoints" (주어 People이 능동 행위자이므로 과거분사 X).
+- 3단 병렬 구조: "selectively [search for], [interpret], and [recall] facts".`,
+
+        '수학': `[단원명] 고1 수학(하) - 함수의 뜻, 합성함수와 역함수의 성질
+
+1. 함수의 정의와 여러 가지 함수
+- 두 함수 f, g가 서로 같다(f = g): 정의역과 공역이 각각 같고, 정의역의 모든 원소 x에 대하여 f(x) = g(x)일 때.
+- 일대일함수: x₁ ≠ x₂이면 f(x₁) ≠ f(x₂). (대우: f(x₁)=f(x₂)이면 x₁=x₂)
+- 일대일대응: 일대일함수이면서 동시에 [치역 = 공역]인 함수. (역함수가 존재하기 위한 필요충분조건!)
+- 원소의 개수가 n(X)=a, n(Y)=b일 때: 함수의 개수 bᵃ, 일대일대응(a=b)의 개수 a!, 상수함수의 개수 b.
+
+2. 합성함수와 역함수 핵심 공식
+- 합성함수 (g ∘ f)(x) = g(f(x)): 일반적으로 교환법칙 성립 안 함(g ∘ f ≠ f ∘ g), 결합법칙은 성립.
+- 역함수 f⁻¹: y = f(x) ⇔ x = f⁻¹(y).
+- (g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹ (순서 바뀜 주의!).
+- 역함수 그래프 교점 함정: 증가함수는 y = f(x)와 y = f⁻¹(x)의 교점이 반드시 직선 y = x 위에 있지만, 감소함수는 y = x 위가 아닌 대칭점 쌍 (a, b), (b, a)에서도 교점이 발생할 수 있음.`,
+
+        '통합사회': `[단원명] 고1 통합사회 - 인권 보장과 헌법, 기본권의 종류와 제한의 한계
+
+1. 인권의 특징과 세대별 발전
+- 인권의 특징: 천부성, 보편성, 불가침성, 항구성.
+- 1세대 인권(자유권·참정권): 국가의 간섭 배제(소극적 권리), 시민혁명기 등장.
+- 2세대 인권(사회권): 인간다운 생활 보장 요구(적극적 권리), 1919년 독일 바이마르 헌법 최초 명시.
+- 3세대 인권(연대권): 평화권, 환경권 등 지구촌 차원의 연대.
+
+2. 대한민국 헌법상 기본권과 제한의 한계(헌법 제37조 제2항)
+- 평등권: 합리적 근거가 있는 차별을 허용하는 '상대적·실질적 평등'.
+- 청구권: 다른 기본권 침해 구제를 위한 수단적·절차적 기본권(재판청구권 등).
+- 기본권 제한 요건: 국가 안전 보장·질서 유지·공공복리 목적 + 반드시 '법률'로써 제한(법률 유보의 원칙) + 과잉금지의 원칙(본질적 내용 침해 금지).`,
+
+        '한국사': `[단원명] 고1 한국사 - 일제 식민 통치와 3·1 운동, 대한민국 임시 정부
+
+1. 1910년대 무단 통치와 경제 수탈
+- 헌병 경찰 제도(즉결 처분권, 한국인에게만 태형령 적용), 관리·교사 제복과 착검.
+- 토지 조사 사업(1910~1918): 기한부 신고제를 통해 미신고 토지 약탈, 지주 소유권만 인정하고 농민의 관습적 경작권 부정.
+- 회사령(1910): 총독의 '허가제'로 민족 자본 성장 억제.
+
+2. 3·1 운동(1919)과 1920년대 문화 통치
+- 배경: 윌슨의 민족 자결주의, 2·8 독립 선언, 고종 인산일.
+- 의의: 무단 통치 → 문화 통치 전환 계기, 대한민국 임시 정부 수립 촉발, 중국 5·4 운동에 영향.
+- 문화 통치의 기만성: 문관 총독 실제 미임명, 보통 경찰 전환 후 경찰 인원·예산 3배 이상 증가, 회사령 허가제 → 신고제 폐지(일본 자본 침투 용이), 산미 증식 계획(증산량보다 많은 쌀 수탈).
+
+3. 대한민국 임시 정부(1919. 4, 상하이 통합)
+- 민주 공화제·삼권 분립 채택, 연통제(비밀 행정)와 교통국(통신·자금), 독립공채, 파리 위원부(김규식)·구미 위원부(이승만).`,
+
+        '기타': `[단원명] 고등학교 정보 - 알고리즘 시간 복잡도와 탐색/정렬
+
+1. 알고리즘과 빅오(Big-O) 표기법
+- 성능 평가 기준: 정확성, 명확성, 유한성, 효율성(시간·공간 복잡도).
+- Big-O 크기 비교: O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ).
+
+2. 탐색 알고리즘
+- 순차 탐색: 정렬 불필요, 최악 O(n).
+- 이진 탐색: 데이터가 반드시 정렬되어 있어야 함! 탐색 범위를 절반씩 축소, 최악 O(log₂ n).
+
+3. 기본 정렬 알고리즘
+- 선택 정렬: 최솟값을 찾아 앞 원소와 교환, O(n²).
+- 버블 정렬: 인접 원소 비교·교환, O(n²).
+- 삽입 정렬: 정렬된 영역에 알맞은 위치로 삽입, 거의 정렬된 경우 최선 O(n), 최악 O(n²).`,
+      };
+
+      /* ---------------- State ---------------- */
+      const state = {
+        subject: '통합과학',
+        difficulty: '실전 내신',
+        contentText: '',
+        pdfFile: null, // { name, size, mimeType, base64 }
+        sampleLoadedSubject: null,
+        isGenerating: false,
+        loadingStepIdx: 0,
+        loadingTimer: null,
+        errorMessage: null,
+        activeController: null,
+        result: null,
+        activeTab: 'summary',
+        summaryViewMode: 'table',
+        selectedChoices: {},
+        revealedAnswers: {},
+        shortDrafts: {},
+        shortRevealed: {},
+        shortHints: {},
+        essayDrafts: {},
+        essayRevealed: {},
+        reviewItems: [],
+        quizMode: false,
+        quizChoices: {},
+        quizRevealed: {},
+        quizDrafts: {},
+        copyStatus: 'idle',
+        exportStatus: 'idle',
+      };
+
+      /* ---------------- Safe Formatting Helpers ---------------- */
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function formatRichHtml(text, boldColor) {
+        const escaped = escapeHtml(text);
+        const color = boldColor || '#0F2942';
+        return escaped.replace(/\*\*([^*]+)\*\*/g, function (_, inner) {
+          return '<strong style="font-weight:700;color:' + color + ';">' + inner + '</strong>';
+        });
+      }
+
+      function formatStemHtml(text) {
+        const pattern =
+          /(옳지 않은 것은\??|적절하지 않은 것은\??|일치하지 않는 것은\??|틀린 것은\??|바르지 않은 것은\??|해당하지 않는 것은\??|거리가 먼 것은\??|옳은 것은\??|적절한 것은\??|일치하는 것은\??|모두 고른 것은\??|포함하여|서술하시오\.?|설명하시오\.?|기술하시오\.?|쓰시오\.?)/g;
+        const segments = String(text || '').split(pattern);
+        return segments
+          .map(function (part, idx) {
+            if (!part) return '';
+            if (idx % 2 === 1) {
+              return '<u class="stem-underline">' + escapeHtml(part) + '</u>';
+            }
+            return formatRichHtml(part, '#0F2942');
+          })
+          .join('');
+      }
+
+      function stripBold(text) {
+        return String(text || '').replace(/\*\*([^*]+)\*\*/g, '$1');
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+      }
+
+      function decodeTextBuffer(buffer) {
+        const bytes = new Uint8Array(buffer);
+        const utf8 = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+        if (utf8.includes('\uFFFD')) {
+          try {
+            const eucKr = new TextDecoder('euc-kr', { fatal: false }).decode(bytes);
+            const uBad = (utf8.match(/\uFFFD/g) || []).length;
+            const eBad = (eucKr.match(/\uFFFD/g) || []).length;
+            if (eBad < uBad) return eucKr;
+          } catch (_) {}
+        }
+        return utf8;
+      }
+
+      /* ---------------- Built-in Local Study Engine (Offline / file:// support) ---------------- */
+      const LOCAL_PRESET_PACKS = {
+        '통합과학': {
+          unitTitle: '산과 염기의 중화 반응과 생활 속 산·염기',
+          oneLineCore: '산(**H⁺**)과 염기(**OH⁻**)가 **1:1 개수비**로 만나 물과 열을 내는 중화 반응의 원리와 중화점 판별 기준(지시약·온도·전류)을 정리한 단원입니다.',
+          keyConcepts: [
+            { term: '알짜 이온 반응식', category: '핵심 식', explanation: 'H⁺ + OH⁻ → H₂O + 중화열로, 실제 물 생성에 참여하는 이온만 나타냅니다.', examTip: 'Na⁺, Cl⁻ 등은 반응하지 않는 구경꾼 이온입니다.' },
+            { term: '중화점과 전류의 세기', category: '실험 그래프', explanation: '1가 산과 1가 염기 혼합 시 중화점에서 단위 부피당 이온 수가 최소가 되어 전류가 최소가 됩니다.', examTip: '구경꾼 이온이 남아 있어 전류는 0이 되지 않습니다.' },
+            { term: '중화점과 최고 온도', category: '열 출입', explanation: '중화 반응은 발열 반응이므로 생성된 물 분자 수가 가장 많은 중화점에서 온도가 가장 높습니다.', examTip: '같은 농도·총부피 일정 조건을 반드시 확인하세요.' },
+            { term: 'BTB 지시약 색 변화', category: '지시약', explanation: '산성(노란색) → 중성(초록색) → 염기성(파란색)으로 색이 변합니다.', examTip: '페놀프탈레인은 산성과 중성 모두 무색입니다.' },
+            { term: '생활 속 중화 반응', category: '실생활 적용', explanation: '위산 과다에 제산제(약염기), 생선 비린내(염기성 아민)에 레몬즙(산성)을 사용합니다.', examTip: '물질의 액성(산/염기) 짝짓기 문제가 단골입니다.' },
+          ],
+          examTraps: [
+            { title: '중화점에서 전류의 세기가 0이 된다는 오개념', trapPoint: '이온이 모두 사라져 전류가 흐르지 않는다고 서술하는 함정 선지.', howToAvoid: '수용액 속에 **구경꾼 이온(Na⁺, Cl⁻)**이 남아 있으므로 전류는 최소일 뿐 0이 아닙니다.' },
+            { title: '페놀프탈레인 용액의 산·중성 구분 불가', trapPoint: '페놀프탈레인이 무색이면 무조건 산성 수용액이라고 단정하는 선지.', howToAvoid: '페놀프탈레인은 **산성과 중성 모두 무색**이며 염기성에서만 붉은색입니다.' },
+            { title: '탄산칼슘과 반응하는 물질 구분', trapPoint: '산과 염기 모두 마그네슘·탄산칼슘과 기체를 발생시킨다고 출제.', howToAvoid: '금속(H₂)과 탄산칼슘(CO₂)과 반응하는 것은 **산의 공통 성질**입니다.' },
+          ],
+          multipleChoice: [
+            {
+              id: 'mc-local-sci-1',
+              questionType: '실험 그래프 해석',
+              stem: '같은 농도와 온도의 묽은 염산(HCl)과 수산화 나트륨(NaOH) 수용액을 표와 같이 부피를 달리하여 혼합하였다. 이에 대한 설명으로 옳지 않은 것은?',
+              passageOrBox: '혼합 용액 (가): HCl 10 mL + NaOH 30 mL\n혼합 용액 (나): HCl 20 mL + NaOH 20 mL\n혼합 용액 (다): HCl 30 mL + NaOH 10 mL',
+              choices: [
+                '생성된 물 분자 수가 가장 많은 용액은 (나)이다.',
+                '(나)의 혼합 용액 온도가 세 용액 중 가장 높다.',
+                '(나)에서는 구경꾼 이온만 남아 전류가 전혀 흐르지 않는다.',
+                '(가)에 페놀프탈레인 용액을 떨어뜨리면 붉은색을 띤다.',
+                '(다)에 마그네슘 리본을 넣으면 수소 기체가 발생한다.',
+              ],
+              correctIndex: 2,
+              explanation: '정답은 **③번**입니다. (나)는 H⁺과 OH⁻의 개수가 같아 완전히 중화되는 **중화점**이지만, 구경꾼 이온인 **Na⁺과 Cl⁻**이 수용액 속에 남아 있으므로 전류가 최소가 될 뿐 **전혀 흐르지 않는 것(0)은 아닙니다**.',
+              solutionSteps: [
+                'Step 1: 같은 농도이므로 부피가 같은 (나)(20 mL + 20 mL)에서 H⁺과 OH⁻가 모두 반응하여 **완전 중화**됩니다.',
+                'Step 2: 중화점 (나)에서는 생성된 **물 분자 수**가 최대이며 **중화열**에 의해 온도가 가장 높습니다.',
+                'Step 3: 하지만 구경꾼 이온(**Na⁺, Cl⁻**)이 전하를 운반하므로 전류는 **최솟값(≠ 0)**을 가집니다.',
+              ],
+              wrongReasons: [
+                'H⁺과 OH⁻이 20 mL 분량만큼 모두 반응하므로 생성된 물 분자 수가 가장 많습니다.',
+                '중화 반응은 발열 반응이므로 중화가 가장 많이 일어난 (나)의 온도가 최고입니다.',
+                '(정답) 구경꾼 이온이 존재하므로 전류는 최소가 되지만 0이 되지는 않습니다.',
+                '(가)는 NaOH가 남아 염기성이므로 페놀프탈레인이 붉은색으로 변합니다.',
+                '(다)는 HCl이 남아 산성이므로 금속(Mg)과 반응해 H₂ 기체를 발생시킵니다.',
+              ],
+              trapNote: '시험에서 "중화점에서 이온 수가 최소이므로 전류가 0이다"라는 선지가 매우 자주 출제됩니다. 반드시 **구경꾼 이온의 존재**를 떠올려야 합니다.',
+              coreConceptNote: '중화점 판별 3요소: **최고 온도**, **지시약 중성색(BTB 초록)**, **전류 세기 최소(0 아님)**.',
+              relatedConcept: '중화점과 이온 수 변화',
+            },
+            {
+              id: 'mc-local-sci-2',
+              questionType: '생활 속 중화 반응',
+              stem: '다음 중 산과 염기의 중화 반응을 이용한 사례로 적절하지 않은 것은?',
+              passageOrBox: '',
+              choices: [
+                '속이 쓰릴 때 약한 염기성인 제산제를 복용한다.',
+                '벌레에 물려 가려울 때 암모니아수를 바른다.',
+                '생선의 비린내를 없애기 위해 레몬즙을 뿌린다.',
+                '산성화된 토양에 석회 가루를 뿌려 중화한다.',
+                '붉은색 리트머스 종이에 비눗물을 묻혀 푸르게 변하는지 확인한다.',
+              ],
+              correctIndex: 4,
+              explanation: '정답은 **⑤번**입니다. 붉은색 리트머스 종이를 푸르게 변화시키는 것은 비눗물(염기성)의 성질을 **지시약으로 확인**하는 실험일 뿐, 산과 염기가 반응하는 **중화 반응의 활용 사례**가 아닙니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '위산(HCl, 산성)을 제산제(Mg(OH)₂, 염기성)로 중화하는 대표 사례입니다.',
+                '벌레의 독(포름산, 산성)을 암모니아수(약염기)로 중화합니다.',
+                '생선 비린내 성분(아민류, 염기성)을 레몬즙(구연산, 산성)으로 중화합니다.',
+                '산성 토양을 염기성 석회 가루로 중화합니다.',
+                '(정답) 지시약을 통한 액성 판별이지 산·염기 중화 반응이 아닙니다.',
+              ],
+              trapNote: '지시약의 색 변화나 단순 용해 현상을 중화 반응 사례 속에 섞어 출제하는 경우가 많습니다.',
+              coreConceptNote: '생활 속 중화 반응은 반드시 **산 + 염기 → 물 + 염**의 결합인지 확인해야 합니다.',
+              relatedConcept: '생활 속 중화 반응',
+            },
+            {
+              id: 'mc-local-sci-3',
+              questionType: '지시약 판별',
+              stem: '미지의 수용액 A에 대한 실험 결과이다. 수용액 A의 액성과 같은 성질을 띠는 물질은?',
+              passageOrBox: '• 페놀프탈레인 용액을 떨어뜨렸더니 색 변화가 없었다.\n• 달걀 껍데기(주성분 CaCO₃)를 넣었더니 기체가 발생하였다.',
+              choices: ['비눗물', '유리 세정제', '레몬즙', '석회수', '수산화 나트륨 수용액'],
+              correctIndex: 2,
+              explanation: '정답은 **③번 레몬즙**입니다. 탄산칼슘(CaCO₃)과 반응해 이산화탄소(CO₂) 기체를 발생시키는 성질은 **산성** 수용액의 특징이며, 페놀프탈레인 무색 조건에도 부합합니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '비눗물은 염기성으로 페놀프탈레인이 붉어집니다.',
+                '유리 세정제는 암모니아 성분의 염기성입니다.',
+                '(정답) 레몬즙은 산성 물질로 CaCO₃와 반응해 기체를 발생시킵니다.',
+                '석회수(Ca(OH)₂)는 염기성입니다.',
+                '수산화 나트륨 수용액은 강한 염기성입니다.',
+              ],
+              trapNote: '페놀프탈레인 무색만 보고 산/중성을 바로 단정하지 말고 **탄산칼슘 반응(산성 고유 성질)** 조건까지 함께 확인해야 합니다.',
+              coreConceptNote: '**산의 공통 성질**: H⁺에 의해 나타나며, 마그네슘(H₂↑) 및 탄산칼슘(CO₂↑)과 반응합니다.',
+              relatedConcept: '산과 염기의 성질',
+            },
+            {
+              id: 'mc-local-sci-4',
+              questionType: '이온 모형 추론',
+              stem: '일정량의 묽은 염산(HCl)에 수산화 나트륨(NaOH) 수용액을 조금씩 가할 때, 혼합 용액 속 이온 수 변화에 대한 설명으로 옳은 것은?',
+              passageOrBox: '',
+              choices: [
+                'NaOH을 넣을수록 Cl⁻의 개수는 계속 감소한다.',
+                '중화점 이후에는 H⁺의 개수가 급격히 증가한다.',
+                '중화점까지 Na⁺의 개수는 일정하게 유지된다.',
+                '중화점 이후에 OH⁻의 개수가 증가하기 시작한다.',
+                '전체 이온의 총수는 중화점까지 계속 감소한다.',
+              ],
+              correctIndex: 3,
+              explanation: '정답은 **④번**입니다. 중화점까지는 넣어준 OH⁻가 H⁺과 반응해 물이 되므로 존재하지 않다가, **중화점 이후** H⁺이 모두 소모된 뒤부터는 넣어주는 만큼 **OH⁻의 개수가 증가**합니다.',
+              solutionSteps: [
+                'Step 1: 처음 HCl 속에는 **H⁺**과 구경꾼 이온 **Cl⁻**이 같은 수만큼 존재합니다.',
+                'Step 2: NaOH을 가하면 Cl⁻ 수는 **일정**하고, H⁺은 **감소**해 중화점에서 0이 되며, Na⁺은 계속 **증가**합니다.',
+                'Step 3: 중화점 이전까지 OH⁻은 0을 유지하다가 **중화점 이후부터 증가**합니다.',
+              ],
+              wrongReasons: [
+                'Cl⁻은 구경꾼 이온이므로 처음 개수 그대로 일정합니다.',
+                'H⁺은 반응해 줄어들다 중화점에서 0이 됩니다.',
+                'Na⁺은 계속 투입되므로 처음부터 꾸준히 증가합니다.',
+                '(정답) 중화점에서 H⁺이 모두 사라진 뒤부터 OH⁻ 수가 증가합니다.',
+                '1가 산+1가 염기 첨가 시 중화점까지는 전체 이온 수가 일정(H⁺ 감소분 = Na⁺ 증가분)하다가 중화점 이후 증가합니다.',
+              ],
+              trapNote: '**이온의 개수(총수)**와 **단위 부피당 이온 수(농도)**를 혼동하면 안 됩니다! 전체 이온 개수는 중화점까지 일정합니다.',
+              coreConceptNote: '산에 염기 첨가 시 각 이온 수: Cl⁻(일정), Na⁺(증가), H⁺(감소→0), OH⁻(0→중화점 후 증가).',
+              relatedConcept: '중화 반응 이온 수 그래프',
+            },
+          ],
+          shortAnswer: [
+            {
+              id: 'sa-local-sci-1',
+              question: '염산(HCl)과 수산화 나트륨(NaOH) 수용액의 중화 반응에서 실제 물 생성에 참여하지 않고 수용액 속에 그대로 남아 있는 두 종류의 이온을 화학식으로 쓰시오.',
+              hint: '산의 음이온과 염기의 양이온을 구경꾼 이온이라고 합니다.',
+              modelAnswer: '**Na⁺, Cl⁻**',
+              solutionSteps: [],
+              requiredKeywords: ['Na⁺', 'Cl⁻'],
+              gradingRubric: [
+                { criterion: '**Na⁺**과 **Cl⁻** 두 이온의 전하량(+/-)까지 정확히 표기한 경우', points: '3점' },
+                { criterion: '두 이온 중 1개만 정확히 표기하거나 전하 기호를 누락한 경우', points: '1점' },
+              ],
+              gradingCriteria: '화학식과 이온 전하 기호(+, -)를 정확히 함께 표기해야 만점을 인정합니다.',
+              deductionTip: '이온식을 쓸 때 Na, Cl처럼 원소 기호만 적고 **전하 표시(⁺, ⁻)**를 빠뜨리면 감점됩니다.',
+              relatedConcept: '구경꾼 이온',
+            },
+            {
+              id: 'sa-local-sci-2',
+              question: '산의 수소 이온과 염기의 수산화 이온이 반응하여 물과 열을 생성하는 중화 반응의 알짜 이온 반응식을 쓰시오.',
+              hint: '반응물과 생성물의 상태 변화와 중화열을 포함해 간단히 나타냅니다.',
+              modelAnswer: '**H⁺ + OH⁻ → H₂O** (+ 열)',
+              solutionSteps: [],
+              requiredKeywords: ['H⁺', 'OH⁻', 'H₂O'],
+              gradingRubric: [
+                { criterion: '반응물(**H⁺ + OH⁻**)과 생성물(**H₂O**)을 계수 1:1:1로 정확히 작성한 경우', points: '3점' },
+              ],
+              gradingCriteria: '알짜 이온 반응식 좌변과 우변의 전하 균형과 화학식이 정확해야 합니다.',
+              deductionTip: '화살표 대신 등호(=)를 쓰거나 H2O를 H2 + O2로 잘못 적지 않도록 주의하세요.',
+              relatedConcept: '알짜 이온 반응식',
+            },
+          ],
+          essay: [
+            {
+              id: 'es-local-sci-1',
+              question: '1가 산과 1가 염기를 혼합한 중화 반응 실험에서, 중화점에 도달했을 때 혼합 용액의 전류 세기가 최소가 되지만 0이 되지 않는 이유를 서술하시오.',
+              conditions: ['**알짜 이온**과 **구경꾼 이온**이라는 용어를 반드시 포함할 것', '전류가 흐르는 물리적 이유와 연결해 두 문장 이내로 서술할 것'],
+              modelAnswer: '중화점에서는 **알짜 이온**인 수소 이온(H⁺)과 수산화 이온(OH⁻)이 모두 반응하여 물이 되면서 단위 부피당 이온 수가 최소가 되어 전류의 세기가 가장 약해집니다. 그러나 반응에 참여하지 않은 **구경꾼 이온**들이 여전히 수용액 속에 남아 전하를 운반하므로 전류의 세기는 0이 되지 않습니다.',
+              solutionSteps: [],
+              requiredKeywords: ['알짜 이온', '구경꾼 이온', '단위 부피당 이온 수'],
+              gradingCriteria: [
+                { criterion: '**알짜 이온** 반응으로 단위 부피당 이온 수가 최소가 됨을 서술', points: '2점' },
+                { criterion: '**구경꾼 이온**이 수용액에 남아 전류를 흐르게 함을 서술', points: '3점' },
+              ],
+              deductionTip: '단순히 "이온이 남아서"라고만 쓰지 말고 반드시 제시된 조건인 **알짜 이온**과 **구경꾼 이온** 용어를 정확히 구분해 넣어야 합니다.',
+              relatedConcept: '중화점 전기 전도도',
+            },
+            {
+              id: 'es-local-sci-2',
+              question: '생선 요리에 레몬즙을 뿌려 비린내를 제거하는 원리를 산과 염기의 성질 및 중화 반응과 연결하여 서술하시오.',
+              conditions: ['비린내 원인 물질과 레몬즙의 **액성**을 각각 명시할 것', '**중화 반응**이라는 핵심 용어를 포함하여 완결된 한 문장 이상으로 서술할 것'],
+              modelAnswer: '생선 비린내의 원인 물질인 아민류는 **염기성**을 띠고 레몬즙의 구연산은 **산성**을 띠므로, 두 물질이 만나 **중화 반응**을 일으켜 비린내가 효과적으로 제거됩니다.',
+              solutionSteps: [],
+              requiredKeywords: ['염기성', '산성', '중화 반응'],
+              gradingCriteria: [
+                { criterion: '비린내 물질이 **염기성**, 레몬즙이 **산성**임을 정확히 대응시킴', points: '2점' },
+                { criterion: '두 물질의 **중화 반응**으로 냄새가 제거됨을 인과적으로 서술', points: '2점' },
+              ],
+              deductionTip: '비린내 물질과 레몬즙의 액성을 반대로 서술하지 않도록 주의하세요.',
+              relatedConcept: '생활 속 중화 반응',
+            },
+          ],
+        },
+
+        '수학': {
+          unitTitle: '함수의 뜻, 합성함수와 역함수의 성질',
+          oneLineCore: '역함수가 존재할 필요충분조건(**일대일대응**)과 합성함수 역변환 공식 **(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹**, 역함수 교점 판별 원리를 핵심으로 다룹니다.',
+          keyConcepts: [
+            { term: '일대일대응', category: '함수 조건', explanation: '일대일함수이면서 동시에 치역 = 공역인 함수로, 역함수 존재의 필요충분조건입니다.', examTip: '구간이 나뉜 함수는 경계에서 연속이고 기울기 부호가 같아야 합니다.' },
+            { term: '역함수의 합성 법칙', category: '핵심 공식', explanation: '(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹ 로 역함수를 풀 때 합성 순서가 반대로 바뀝니다.', examTip: '순서를 바꾸지 않고 계산하는 함정이 매우 자주 출제됩니다.' },
+            { term: 'f(a) = b ⇔ f⁻¹(b) = a', category: '성질', explanation: '역함수를 직접 식으로 구하지 않고 함숫값 대칭 성질을 이용해 값을 구합니다.', examTip: '방정식 f⁻¹(k) = a 는 f(a) = k 로 고쳐 푸는 것이 빠릅니다.' },
+            { term: '함수와 역함수의 교점', category: '그래프 함정', explanation: '증가함수는 교점이 항상 y = x 위에 있지만, 감소함수는 y = x 밖 대칭점에서도 만날 수 있습니다.', examTip: '감소함수는 반드시 (a, b), (b, a) 대칭쌍을 확인하세요.' },
+          ],
+          examTraps: [
+            { title: '합성함수의 역함수 순서 오류', trapPoint: '(g ∘ f)⁻¹(x)를 g⁻¹(f⁻¹(x))로 착각하도록 유도하는 계산 선지.', howToAvoid: '괄호를 풀 때는 반드시 순서를 뒤집어 **f⁻¹(g⁻¹(x))**로 변환하세요.' },
+            { title: '감소함수의 역함수 교점 누락', trapPoint: '모든 함수 f(x)에 대해 f(x)=f⁻¹(x)의 해를 f(x)=x의 해와 같다고 가정.', howToAvoid: '**감소함수**라면 x + y = k 형태의 대칭점 쌍 교점이 있는지 별도 검산하세요.' },
+            { title: '구간 함수의 일대일대응 조건 누락', trapPoint: '두 직선의 기울기 곱 > 0만 확인하고 경계점에서의 연속성을 놓치는 실수.', howToAvoid: '**경계점 함숫값 일치**와 **기울기 부호 일치(a·b > 0)** 두 가지를 모두 확인하세요.' },
+          ],
+          multipleChoice: [
+            {
+              id: 'mc-local-math-1',
+              questionType: '합성함수와 역함수 계산',
+              stem: '실수 전체의 집합에서 정의된 두 일차함수 f(x) = 2x - 1, g(x) = x + 2 에 대하여 (g ∘ f)⁻¹(5)의 값은?',
+              passageOrBox: '',
+              choices: ['0', '1', '2', '3', '4'],
+              correctIndex: 2,
+              explanation: '정답은 **③번 2**입니다. **(g ∘ f)⁻¹(5) = k**로 두면 역함수의 정의에 의해 **(g ∘ f)(k) = g(f(k)) = 5**가 성립합니다. **g(2k - 1) = (2k - 1) + 2 = 2k + 1 = 5**이므로 **2k = 4**, 따라서 **k = 2**입니다.',
+              solutionSteps: [
+                'Step 1: **(g ∘ f)⁻¹(5) = k**라 두면 **(g ∘ f)(k) = g(f(k)) = 5**입니다.',
+                'Step 2: **f(k) = 2k - 1**을 대입하면 **g(2k - 1) = (2k - 1) + 2 = 2k + 1 = 5**입니다.',
+                'Step 3: **2k = 4**에서 **k = 2**입니다. (또는 **(f⁻¹ ∘ g⁻¹)(5) = f⁻¹(3) = 2**로도 동일합니다.)',
+              ],
+              wrongReasons: [
+                '0을 대입하면 g(f(0)) = g(-1) = 1 ≠ 5입니다.',
+                '1을 대입하면 g(f(1)) = g(1) = 3 ≠ 5입니다.',
+                '(정답) g(f(2)) = g(3) = 5가 되어 (g ∘ f)⁻¹(5) = 2입니다.',
+                '3을 대입하면 g(f(3)) = g(5) = 7 ≠ 5입니다.',
+                '4를 대입하면 g(f(4)) = g(7) = 9 ≠ 5입니다.',
+              ],
+              trapNote: '시험장에서 **(g ∘ f)⁻¹ = g⁻¹ ∘ f⁻¹**로 순서를 바꾸지 않고 풀면 완전히 다른 오답이 나오므로 주의해야 합니다.',
+              coreConceptNote: '**(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹** 및 **h⁻¹(a) = k ⇔ h(k) = a**.',
+              relatedConcept: '합성함수의 역함수',
+            },
+            {
+              id: 'mc-local-math-2',
+              questionType: '일대일대응 조건',
+              stem: '집합 X = {x | x ≥ 2}에서 집합 Y = {y | y ≥ 5}로의 함수 f(x) = x² - 4x + a 가 일대일대응일 때, 상수 a의 값은?',
+              passageOrBox: '',
+              choices: ['5', '7', '9', '11', '13'],
+              correctIndex: 2,
+              explanation: '정답은 **③번 9**입니다. **f(x) = (x - 2)² + (a - 4)**는 축이 **x = 2**이므로 정의역 **x ≥ 2**에서 계속 증가하는 일대일함수입니다. 일대일대응이 되려면 **치역 = 공역**이어야 하므로 최솟값 **f(2) = a - 4 = 5**, 즉 **a = 9**입니다.',
+              solutionSteps: [
+                'Step 1: 이차함수를 표준형으로 변형하면 **f(x) = (x - 2)² + a - 4**입니다.',
+                'Step 2: 대칭축이 **x = 2**이므로 정의역 **x ≥ 2**에서 f(x)는 순증가(일대일함수)이며 최솟값은 **f(2) = a - 4**입니다.',
+                'Step 3: 치역 **{y | y ≥ a - 4}**가 공역 **{y | y ≥ 5}**와 같아야 하므로 **a - 4 = 5 ⇒ a = 9**입니다.',
+              ],
+              wrongReasons: [
+                'a = 5이면 f(2) = 1이 되어 치역이 y ≥ 1이므로 공역과 다릅니다.',
+                'a = 7이면 f(2) = 3이 되어 치역이 y ≥ 3입니다.',
+                '(정답) f(2) = 9 - 4 = 5가 되어 치역과 공역이 정확히 일치합니다.',
+                'a = 11이면 f(2) = 7이 되어 치역이 공역의 진부분집합이 됩니다.',
+                'a = 13이면 f(2) = 9가 되어 일대일함수일 뿐 일대일대응이 아닙니다.',
+              ],
+              trapNote: '꼭짓점의 y좌표가 공역의 최솟값과 **정확히 일치**해야 치역 = 공역 조건을 만족합니다.',
+              coreConceptNote: '일대일대응 조건: **단조 증가/감소** + **치역 = 공역**.',
+              relatedConcept: '이차함수의 일대일대응',
+            },
+            {
+              id: 'mc-local-math-3',
+              questionType: '서로 같은 함수',
+              stem: '정의역이 X = {-1, 1}이고 공역이 실수 전체의 집합일 때, 함수 f(x) = 2x + 1 과 서로 같은 함수인 것은?',
+              passageOrBox: '',
+              choices: [
+                'g(x) = 2x² + 1',
+                'g(x) = 2x³ + 1',
+                'g(x) = |2x| + 1',
+                'g(x) = -2x + 1',
+                'g(x) = 3',
+              ],
+              correctIndex: 1,
+              explanation: '정답은 **②번 g(x) = 2x³ + 1**입니다. 정의역의 모든 원소 **x = -1, 1**에 대하여 **f(-1) = -1, f(1) = 3**이고, **g(-1) = -2 + 1 = -1, g(1) = 2 + 1 = 3**으로 모든 함숫값이 일치합니다.',
+              solutionSteps: [
+                'Step 1: **f(-1) = -1**, **f(1) = 3**을 먼저 구합니다.',
+                'Step 2: **x ∈ {-1, 1}**에서 **x³ = x**이므로 **g(x) = 2x³ + 1**은 **g(-1) = -1, g(1) = 3**이 되어 f와 같습니다.',
+                'Step 3: 나머지 함수들은 **x = -1**일 때 값이 **-1**이 되지 않습니다.',
+              ],
+              wrongReasons: [
+                'g(-1) = 3 ≠ -1이므로 서로 다른 함수입니다.',
+                '(정답) g(-1) = -1, g(1) = 3으로 모든 원소에서 함숫값이 같습니다.',
+                'g(-1) = 3 ≠ -1이므로 다릅니다.',
+                'g(-1) = 3 ≠ -1, g(1) = -1 ≠ 3이므로 다릅니다.',
+                '상수함수이므로 g(-1) = 3 ≠ -1입니다.',
+              ],
+              trapNote: '식의 겉모양이 다르더라도 **제한된 정의역의 모든 원소에서 함숫값이 같으면** 서로 같은 함수입니다.',
+              coreConceptNote: '**f = g**의 정의: 정의역·공역 일치 + 모든 x ∈ X에 대해 **f(x) = g(x)**.',
+              relatedConcept: '서로 같은 함수',
+            },
+            {
+              id: 'mc-local-math-4',
+              questionType: '역함수 교점',
+              stem: '함수 f(x) = 3x - 8 과 그 역함수 y = f⁻¹(x) 의 그래프가 만나는 교점의 좌표를 (a, b)라 할 때, a + b의 값은?',
+              passageOrBox: '',
+              choices: ['4', '6', '8', '10', '12'],
+              correctIndex: 2,
+              explanation: '정답은 **③번 8**입니다. f(x) = 3x - 8은 기울기가 양수인 **증가함수**이므로 역함수와의 교점은 반드시 직선 **y = x** 위에 존재합니다. **3x - 8 = x**를 풀면 **2x = 8 ⇒ x = 4**이므로 교점은 **(4, 4)**, 따라서 **a + b = 8**입니다.',
+              solutionSteps: [
+                'Step 1: 기울기가 3(> 0)인 일차함수이므로 **증가함수**이고, 교점은 직선 **y = x** 위에 있습니다.',
+                'Step 2: **3x - 8 = x**를 풀면 **2x = 8**, 즉 **x = 4**입니다.',
+                'Step 3: y = x 위의 점이므로 **a = 4, b = 4**이고 **a + b = 8**입니다.',
+              ],
+              wrongReasons: [
+                '4는 교점의 x좌표(a) 값이지 a + b의 값이 아닙니다.',
+                '계산 실수로 3x - 8 = 0이나 잘못 이항한 경우입니다.',
+                '(정답) 교점 (4, 4)에서 4 + 4 = 8입니다.',
+                '부호 이항 실수 시 2x = 10으로 오산할 수 있습니다.',
+                '3x + 8로 부호를 잘못 본 경우입니다.',
+              ],
+              trapNote: '교점의 x좌표만 구해 답을 4로 고르는 실수를 조심하세요! 문제에서 구하라는 **a + b**를 끝까지 확인해야 합니다.',
+              coreConceptNote: '증가함수 y = f(x)와 y = f⁻¹(x)의 교점은 연립방정식 **f(x) = x**로 구합니다.',
+              relatedConcept: '역함수 그래프와 교점',
+            },
+          ],
+          shortAnswer: [
+            {
+              id: 'sa-local-math-1',
+              question: '두 집합 X = {1, 2, 3}, Y = {1, 2, 3}에 대하여 X에서 Y로의 일대일대응의 개수를 구하시오.',
+              hint: '1이 갈 수 있는 곳 3가지, 2는 남은 2가지, 3은 남은 1가지입니다.',
+              modelAnswer: '**6**',
+              solutionSteps: ['Step 1: 원소 1이 대응할 수 있는 원소는 3개, 2는 2개, 3은 1개입니다.', 'Step 2: 곱의 법칙에 의해 **3! = 3 × 2 × 1 = 6**입니다.'],
+              requiredKeywords: ['6', '3!'],
+              gradingRubric: [
+                { criterion: '**3! = 6**을 정확히 도출하여 6을 기입한 경우', points: '3점' },
+              ],
+              gradingCriteria: '정확한 정수값 6을 작성하면 만점입니다.',
+              deductionTip: '함수의 개수(3³ = 27)와 일대일대응의 개수(3! = 6)를 혼동하지 마세요.',
+              relatedConcept: '함수의 개수',
+            },
+            {
+              id: 'sa-local-math-2',
+              question: '일차함수 f(x) = 3x - 5 에 대하여 f⁻¹(7)의 값을 구하시오.',
+              hint: 'f⁻¹(7) = k로 두고 f(k) = 7을 푸세요.',
+              modelAnswer: '**4**',
+              solutionSteps: ['Step 1: **f⁻¹(7) = k**라 하면 **f(k) = 7**입니다.', 'Step 2: **3k - 5 = 7 ⇒ 3k = 12 ⇒ k = 4**입니다.'],
+              requiredKeywords: ['4'],
+              gradingRubric: [
+                { criterion: '역함수 정의를 이용해 **k = 4**를 정확히 구한 경우', points: '3점' },
+              ],
+              gradingCriteria: '역함수를 직접 구하거나 f(k)=7 성질을 이용해 4를 도출하면 정답입니다.',
+              deductionTip: 'x = 7을 f(x)에 바로 대입(3×7-5 = 16)하지 않도록 주의하세요.',
+              relatedConcept: '역함수의 함숫값',
+            },
+          ],
+          essay: [
+            {
+              id: 'es-local-math-1',
+              question: '실수 전체의 집합에서 정의된 함수 f(x)가 x ≥ 0일 때 f(x) = 2x + 3이고, x < 0일 때 f(x) = (k - 1)x + 3이다. 이 함수 f(x)의 역함수가 존재하기 위한 상수 k의 값의 범위를 풀이 과정과 함께 서술하시오.',
+              conditions: ['역함수가 존재할 필요충분조건인 **일대일대응**을 명시할 것', '경계점(x = 0)에서의 연속 여부와 **기울기의 부호** 조건을 단계적으로 서술할 것'],
+              modelAnswer: '역함수가 존재하려면 함수 f(x)가 **일대일대응**이어야 합니다. 경계점 x = 0에서 두 식의 값이 모두 **3**으로 일치하여 연속이고, x ≥ 0 구간의 **기울기가 2(> 0)**로 양수이므로 x < 0 구간의 기울기 역시 양수여야 합니다. 따라서 **k - 1 > 0**이므로 구하는 범위는 **k > 1**입니다.',
+              solutionSteps: [
+                'Step 1: 역함수 존재 조건은 **일대일대응**입니다.',
+                'Step 2: x = 0에서 양쪽 극한값·함숫값이 모두 3으로 같으므로 연속입니다.',
+                'Step 3: x ≥ 0의 기울기 2 > 0이므로 **k - 1 > 0 ⇒ k > 1**입니다.',
+              ],
+              requiredKeywords: ['일대일대응', '기울기', 'k > 1'],
+              gradingCriteria: [
+                { criterion: '역함수 존재 조건이 **일대일대응**임을 명시', points: '1점' },
+                { criterion: '두 구간의 기울기 부호가 같아야 함(**2(k - 1) > 0**)을 제시', points: '2점' },
+                { criterion: '정확한 범위 **k > 1** 도출', points: '2점' },
+              ],
+              deductionTip: '등호(=)를 넣어 **k ≥ 1**로 쓰면 기울기가 0인 상수함수가 되어 일대일대응이 깨지므로 반드시 등호를 제외해야 합니다.',
+              relatedConcept: '역함수가 존재할 조건',
+            },
+            {
+              id: 'es-local-math-2',
+              question: '두 함수 f(x) = x + 4, g(x) = 2x - 1에 대하여 (f ∘ (g ∘ f)⁻¹ ∘ f)(3)의 값을 단계별 풀이 과정과 함께 구하시오.',
+              conditions: ['합성함수의 역함수 성질 **(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹**를 사용할 것', '항등함수로 소거되는 과정을 명시할 것'],
+              modelAnswer: '**(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹**이므로 주어진 식은 **(f ∘ f⁻¹ ∘ g⁻¹ ∘ f)(3)**으로 변형됩니다. 이때 **f ∘ f⁻¹**는 항등함수이므로 식은 **(g⁻¹ ∘ f)(3) = g⁻¹(f(3))**와 같습니다. **f(3) = 7**이고 **g⁻¹(7) = k**라 하면 **2k - 1 = 7**에서 **k = 4**이므로 구하는 값은 **4**입니다.',
+              solutionSteps: [
+                'Step 1: **(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹** 적용 → **f ∘ f⁻¹ ∘ g⁻¹ ∘ f**',
+                'Step 2: **f ∘ f⁻¹ = I** 소거 → **g⁻¹(f(3))**',
+                'Step 3: **f(3) = 7**, **2k - 1 = 7 ⇒ k = 4**',
+              ],
+              requiredKeywords: ['f⁻¹ ∘ g⁻¹', '항등함수', '4'],
+              gradingCriteria: [
+                { criterion: '**(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹** 정확히 전개', points: '2점' },
+                { criterion: '**f ∘ f⁻¹** 소거 과정 서술', points: '1점' },
+                { criterion: '**g⁻¹(7) = 4** 정확한 계산', points: '2점' },
+              ],
+              deductionTip: '합성의 결합법칙은 성립하지만 교환법칙은 성립하지 않으므로 순서를 임의로 바꾸지 마세요.',
+              relatedConcept: '합성함수와 역함수 연산',
+            },
+          ],
+        },
+      };
+
+      function buildDynamicOfflinePack(subject, difficulty, contentText, pdfFile) {
+        const raw = (contentText || '').trim();
+        const presetKey = LOCAL_PRESET_PACKS[subject] ? subject : null;
+        const isSampleExact = presetKey && raw && SAMPLE_EXAM_CONTENTS[subject] && raw.slice(0, 60) === SAMPLE_EXAM_CONTENTS[subject].slice(0, 60);
+
+        if (isSampleExact && presetKey) {
+          return Object.assign({}, LOCAL_PRESET_PACKS[presetKey], {
+            subject: subject,
+            difficulty: difficulty,
+            generatedAt: new Date().toISOString(),
+            offlineNotice: true,
+          });
+        }
+
+        // Dynamic extraction from user-entered text or short topic
+        const lines = raw
+          .split(/\r?\n/)
+          .map(function (l) { return l.replace(/^[\s\-·•*0-9.)]+/, '').trim(); })
+          .filter(function (l) { return l.length >= 4; });
+
+        const unitTitle = pdfFile && !raw
+          ? subject + ' — ' + pdfFile.name + ' 핵심 정리'
+          : (lines[0] && lines[0].length < 48 ? lines[0] : subject + ' (' + (raw.slice(0, 28) || '핵심 단원') + ') 내신 대비');
+
+        const concepts = [];
+        lines.forEach(function (line) {
+          if (concepts.length >= 6) return;
+          const colonIdx = line.indexOf(':');
+          if (colonIdx > 1 && colonIdx < 28) {
+            const term = line.slice(0, colonIdx).trim();
+            const exp = line.slice(colonIdx + 1).trim();
+            if (term && exp.length > 5) {
+              concepts.push({
+                term: term,
+                category: subject + ' 핵심',
+                explanation: exp,
+                examTip: '정의의 핵심 조건과 예외 사항을 연결해 암기하세요.',
+              });
+            }
+          }
+        });
+
+        while (concepts.length < 4) {
+          const fallbackIdx = concepts.length;
+          const baseSentence = lines[fallbackIdx] || (raw || subject + ' 교육과정 핵심 원리와 개념 정리');
+          concepts.push({
+            term: subject + ' 핵심 포인트 ' + (fallbackIdx + 1),
+            category: difficulty,
+            explanation: baseSentence.slice(0, 120),
+            examTip: '시험 선지에서 인과관계나 긍정/부정 조건을 반대로 바꾸는 함정에 주의하세요.',
+          });
+        }
+
+        const c0 = concepts[0];
+        const c1 = concepts[1];
+        const c2 = concepts[2];
+        const c3 = concepts[3];
+
+        return {
+          subject: subject,
+          difficulty: difficulty,
+          generatedAt: new Date().toISOString(),
+          offlineNotice: true,
+          summary: {
+            unitTitle: unitTitle,
+            oneLineCore: '**' + unitTitle + '** 범위에서 반드시 출제되는 핵심 정의와 비교 포인트를 구조화해 정리했습니다.',
+            keyConcepts: concepts,
+            examTraps: [
+              { title: '핵심 용어와 조건의 치환 함정', trapPoint: '**' + c0.term + '**의 성질과 **' + c1.term + '**의 조건을 서로 바꾸어 출제하는 선지가 빈번합니다.', howToAvoid: '각 개념이 적용되는 **전제 조건과 예외**를 먼저 대조해 판별하세요.' },
+              { title: '인과관계 역전 및 과장 표현', trapPoint: '"반드시 ~한다", "항상 ~이다"와 같은 극단적 단정어로 오답 선지를 만듭니다.', howToAvoid: '본문에서 **예외 조건이나 제한 범위**가 있는지 밑줄로 확인하세요.' },
+              { title: '서술형 필수 키워드 누락 감점', trapPoint: '개념의 뜻은 맞지만 채점 기준의 **핵심 용어**를 일상어로 풀어 써서 감점되는 사례입니다.', howToAvoid: '정리된 핵심 용어(**' + c0.term + '**, **' + c1.term + '**)를 그대로 사용해 문장을 완성하세요.' },
+            ],
+          },
+          multipleChoice: [
+            {
+              id: 'mc-dyn-1',
+              questionType: '핵심 개념 확인',
+              stem: '다음 설명에 해당하는 [' + subject + '] 단원의 핵심 개념으로 가장 적절한 것은?',
+              passageOrBox: c0.explanation,
+              choices: [c0.term, c1.term, c2.term, c3.term, '항등 변형 조건'],
+              correctIndex: 0,
+              explanation: '정답은 **①번 ' + c0.term + '**입니다. 제시된 <보기>의 설명은 **' + c0.term + '**의 핵심 원리를 정확히 기술하고 있습니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '(정답) 제시된 설명이 **' + c0.term + '**의 정의와 일치합니다.',
+                '**' + c1.term + '**은(는) 다른 맥락의 개념입니다: ' + c1.explanation.slice(0, 45),
+                '**' + c2.term + '**은(는) 제시문의 핵심 내용과 거리가 있습니다.',
+                '**' + c3.term + '**은(는) 구분해야 할 별도 개념입니다.',
+                '단원 핵심 용어에 해당하지 않는 오답 선지입니다.',
+              ],
+              trapNote: '**' + c0.term + '**과 **' + c1.term + '**을 혼동하지 않도록 두 개념의 핵심 차이를 비교해 두세요.',
+              coreConceptNote: '**' + c0.term + '**: ' + c0.explanation,
+              relatedConcept: c0.term,
+            },
+            {
+              id: 'mc-dyn-2',
+              questionType: '내용 일치/불일치',
+              stem: '[' + unitTitle + ']의 학습 내용에 대한 이해로 가장 옳은 것은?',
+              passageOrBox: '',
+              choices: [
+                c1.term + '은(는) 본문 범위와 무관한 개념이다.',
+                c1.term + ': ' + c1.explanation,
+                c2.term + '은(는) 어떠한 조건이나 예외도 없이 항상 반대로 작용한다.',
+                c0.term + '의 정의는 ' + c3.term + '과 완전히 동일하다.',
+                '핵심 개념은 실제 문제 풀이에 적용할 수 없다.',
+              ],
+              correctIndex: 1,
+              explanation: '정답은 **②번**입니다. **' + c1.term + '**에 대한 정확한 설명을 담고 있으며, 나머지 선지는 조건을 과장하거나 개념을 잘못 연결했습니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '**' + c1.term + '**은 해당 단원의 핵심 개념입니다.',
+                '(정답) 단원 핵심 설명과 정확히 일치합니다.',
+                '극단적 부정 표현으로 왜곡된 선지입니다.',
+                '서로 구분되는 개념을 동일하다고 잘못 서술했습니다.',
+                '단원 원리는 실전 적용 문항의 핵심 근거입니다.',
+              ],
+              trapNote: '"무관하다", "어떠한 예외도 없이" 같은 **절대적 단정 표현**이 들어가면 오답일 가능성이 매우 높습니다.',
+              coreConceptNote: '**' + c1.term + '**: ' + c1.explanation,
+              relatedConcept: c1.term,
+            },
+            {
+              id: 'mc-dyn-3',
+              questionType: '개념 비교·추론',
+              stem: '다음 <보기>의 설명과 연결할 수 있는 핵심 개념을 바르게 짝지은 것은?',
+              passageOrBox: '(가) ' + c2.explanation + '\n(나) ' + c3.explanation,
+              choices: [
+                '(가) ' + c3.term + ' — (나) ' + c2.term,
+                '(가) ' + c0.term + ' — (나) ' + c1.term,
+                '(가) ' + c2.term + ' — (나) ' + c3.term,
+                '(가) ' + c1.term + ' — (나) ' + c0.term,
+                '(가) ' + c2.term + ' — (나) ' + c0.term,
+              ],
+              correctIndex: 2,
+              explanation: '정답은 **③번**입니다. (가)는 **' + c2.term + '**의 특징을, (나)는 **' + c3.term + '**의 핵심 원리를 설명하고 있습니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '(가)와 (나)의 개념을 서로 뒤바꾸어 연결한 선지입니다.',
+                '앞부분의 다른 개념과 잘못 연결했습니다.',
+                '(정답) 두 설명에 해당하는 핵심 개념이 모두 정확히 짝지어졌습니다.',
+                '앞뒤 개념 모두 설명과 맞지 않습니다.',
+                '(나)의 개념 연결이 잘못되었습니다.',
+              ],
+              trapNote: '순서·짝짓기 문제는 **(가)**만 확인하고 서두르지 말고 **(나)**까지 끝까지 대조해야 합니다.',
+              coreConceptNote: '**' + c2.term + '** vs **' + c3.term + '** 구분.',
+              relatedConcept: c2.term,
+            },
+            {
+              id: 'mc-dyn-4',
+              questionType: '함정 판별',
+              stem: '[' + subject + '] 내신 시험에서 선지 판별 시 가장 옳지 않은 판단 기준은?',
+              passageOrBox: '',
+              choices: [
+                c0.term + '의 정의와 적용 조건을 정확히 구분한다.',
+                '서술형 답안 작성 시 교과서 핵심 용어를 그대로 사용한다.',
+                c1.term + '과 관련된 예외 사례는 출제되지 않으므로 암기하지 않는다.',
+                '인과관계가 원인→결과 순서로 바르게 연결되었는지 확인한다.',
+                '헷갈리는 개념 쌍은 공통점과 차이점을 표로 정리한다.',
+              ],
+              correctIndex: 2,
+              explanation: '정답은 **③번**입니다. 내신 변별력 문항은 바로 **예외 사례와 경계 조건**을 집중적으로 묻기 때문에 반드시 함께 정리해야 합니다.',
+              solutionSteps: [],
+              wrongReasons: [
+                '정확한 내신 대비 태도입니다.',
+                '서술형 감점을 막는 올바른 전략입니다.',
+                '(정답) 예외 사례야말로 고난도·실전 내신 단골 출제 영역입니다.',
+                '선지 왜곡을 걸러내는 필수 기준입니다.',
+                '비교 정리는 내신 고득점의 핵심입니다.',
+              ],
+              trapNote: '"옳지 않은 것은?" 발문을 읽을 때는 **부정문 끝에 표시**를 해두고 반대로 고르지 않도록 주의하세요.',
+              coreConceptNote: '내신 고득점 = **기본 정의 + 예외 조건 + 용어 정확성**.',
+              relatedConcept: '내신 판별 기준',
+            },
+          ],
+          shortAnswer: [
+            {
+              id: 'sa-dyn-1',
+              question: '다음 설명에 해당하는 핵심 용어를 쓰시오.\n"' + c0.explanation + '"',
+              hint: '핵심 요약표의 첫 번째 개념을 떠올려 보세요.',
+              modelAnswer: '**' + c0.term + '**',
+              solutionSteps: [],
+              requiredKeywords: [c0.term],
+              gradingRubric: [{ criterion: '핵심 용어 **' + c0.term + '** 정확히 표기', points: '3점' }],
+              gradingCriteria: '제시된 핵심 용어를 오탈자 없이 정확히 작성하면 만점입니다.',
+              deductionTip: '비슷한 유의어나 줄임말 대신 교과서 표준 용어를 그대로 작성하세요.',
+              relatedConcept: c0.term,
+            },
+            {
+              id: 'sa-dyn-2',
+              question: '다음 설명에 해당하는 핵심 개념을 쓰시오.\n"' + c1.explanation + '"',
+              hint: '두 번째 핵심 개념과 연결해 확인해 보세요.',
+              modelAnswer: '**' + c1.term + '**',
+              solutionSteps: [],
+              requiredKeywords: [c1.term],
+              gradingRubric: [{ criterion: '핵심 용어 **' + c1.term + '** 정확히 표기', points: '3점' }],
+              gradingCriteria: '핵심 용어를 정확히 기입하면 정답으로 인정합니다.',
+              deductionTip: '단위나 기호가 포함된 용어라면 빠뜨리지 말고 적으세요.',
+              relatedConcept: c1.term,
+            },
+          ],
+          essay: [
+            {
+              id: 'es-dyn-1',
+              question: '[' + unitTitle + ']에서 **' + c0.term + '**의 핵심 의미와 시험에서 주의해야 할 포인트를 서술하시오.',
+              conditions: ['**' + c0.term + '**이라는 용어를 반드시 포함할 것', '원리 설명과 함께 완결된 두 문장 이내로 서술할 것'],
+              modelAnswer: '**' + c0.term + '**은(는) ' + c0.explanation + ' 특히 내신에서는 이와 관련된 전제 조건과 **' + c1.term + '**과의 차이점을 정확히 구분하여 적용해야 합니다.',
+              solutionSteps: [],
+              requiredKeywords: [c0.term, c1.term],
+              gradingCriteria: [
+                { criterion: '**' + c0.term + '**의 핵심 원리 서술', points: '3점' },
+                { criterion: '연관 개념과의 구분·적용 포인트 제시', points: '2점' },
+              ],
+              deductionTip: '문장 수 제한 조건과 필수 포함 키워드 누락 여부를 제출 전 반드시 점검하세요.',
+              relatedConcept: c0.term,
+            },
+            {
+              id: 'es-dyn-2',
+              question: '**' + c1.term + '**과 **' + c2.term + '**의 핵심 내용을 비교하여 서술하시오.',
+              conditions: ['두 핵심 용어를 모두 포함할 것', '각 개념의 특징이 드러나도록 한 문장 이상으로 서술할 것'],
+              modelAnswer: '**' + c1.term + '**은(는) ' + c1.explanation + ' 반면 **' + c2.term + '**은(는) ' + c2.explanation,
+              solutionSteps: [],
+              requiredKeywords: [c1.term, c2.term],
+              gradingCriteria: [
+                { criterion: '**' + c1.term + '**의 특징을 정확히 서술', points: '2점' },
+                { criterion: '**' + c2.term + '**의 특징을 대비하여 서술', points: '2점' },
+              ],
+              deductionTip: '두 개념의 특징을 섞어 모호하게 쓰지 말고 주어와 서술어를 분리해 명확히 작성하세요.',
+              relatedConcept: c1.term,
+            },
+          ],
+        };
+      }
+
+      /* ---------------- Pure JS In-Browser ZIP Builder (for file:// offline export) ---------------- */
+      const CRC_TABLE = (function () {
+        const table = new Uint32Array(256);
+        for (let n = 0; n < 256; n++) {
+          let c = n;
+          for (let k = 0; k < 8; k++) {
+            c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+          }
+          table[n] = c >>> 0;
+        }
+        return table;
+      })();
+
+      function crc32(bytes) {
+        let crc = 0xFFFFFFFF;
+        for (let i = 0; i < bytes.length; i++) {
+          crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+        }
+        return (crc ^ 0xFFFFFFFF) >>> 0;
+      }
+
+      function buildStoreZip(entries) {
+        const encoder = new TextEncoder();
+        const localParts = [];
+        const centralParts = [];
+        let offset = 0;
+
+        entries.forEach(function (entry) {
+          const nameBytes = encoder.encode(entry.name);
+          const dataBytes = encoder.encode(entry.content);
+          const crc = crc32(dataBytes);
+
+          const localHeader = new Uint8Array(30 + nameBytes.length);
+          const lv = new DataView(localHeader.buffer);
+          lv.setUint32(0, 0x04034B50, true);
+          lv.setUint16(4, 20, true);
+          lv.setUint16(6, 0x0800, true);
+          lv.setUint16(8, 0, true);
+          lv.setUint16(10, 0, true);
+          lv.setUint16(12, 0, true);
+          lv.setUint32(14, crc, true);
+          lv.setUint32(18, dataBytes.length, true);
+          lv.setUint32(22, dataBytes.length, true);
+          lv.setUint16(26, nameBytes.length, true);
+          lv.setUint16(28, 0, true);
+          localHeader.set(nameBytes, 30);
+
+          localParts.push(localHeader, dataBytes);
+
+          const centralHeader = new Uint8Array(46 + nameBytes.length);
+          const cv = new DataView(centralHeader.buffer);
+          cv.setUint32(0, 0x02014B50, true);
+          cv.setUint16(4, 20, true);
+          cv.setUint16(6, 20, true);
+          cv.setUint16(8, 0x0800, true);
+          cv.setUint16(10, 0, true);
+          cv.setUint16(12, 0, true);
+          cv.setUint16(14, 0, true);
+          cv.setUint32(16, crc, true);
+          cv.setUint32(20, dataBytes.length, true);
+          cv.setUint32(24, dataBytes.length, true);
+          cv.setUint16(28, nameBytes.length, true);
+          cv.setUint16(30, 0, true);
+          cv.setUint16(32, 0, true);
+          cv.setUint16(34, 0, true);
+          cv.setUint16(36, 0, true);
+          cv.setUint32(38, 0, true);
+          cv.setUint32(42, offset, true);
+          centralHeader.set(nameBytes, 46);
+
+          centralParts.push(centralHeader);
+          offset += localHeader.length + dataBytes.length;
+        });
+
+        let centralSize = 0;
+        centralParts.forEach(function (p) { centralSize += p.length; });
+
+        const endRecord = new Uint8Array(22);
+        const ev = new DataView(endRecord.buffer);
+        ev.setUint32(0, 0x06054B50, true);
+        ev.setUint16(4, 0, true);
+        ev.setUint16(6, 0, true);
+        ev.setUint16(8, entries.length, true);
+        ev.setUint16(10, entries.length, true);
+        ev.setUint32(12, centralSize, true);
+        ev.setUint32(16, offset, true);
+        ev.setUint16(20, 0, true);
+
+        return new Blob(localParts.concat(centralParts, [endRecord]), { type: 'application/zip' });
+      }
+
+      /* ---------------- DOM References ---------------- */
+      const els = {
+        subjectGrid: document.getElementById('subject-grid'),
+        difficultyGroup: document.getElementById('difficulty-group'),
+        difficultyDesc: document.getElementById('difficulty-desc'),
+        textarea: document.getElementById('exam-content-textarea'),
+        charCount: document.getElementById('char-count'),
+        btnClearText: document.getElementById('btn-clear-text'),
+        dropzone: document.getElementById('file-dropzone'),
+        fileInput: document.getElementById('file-input'),
+        btnPickFile: document.getElementById('btn-pick-file'),
+        pdfChip: document.getElementById('pdf-chip'),
+        pdfChipName: document.getElementById('pdf-chip-name'),
+        pdfChipSize: document.getElementById('pdf-chip-size'),
+        btnRemovePdf: document.getElementById('btn-remove-pdf'),
+        fileNotice: document.getElementById('file-notice'),
+        sampleNotice: document.getElementById('sample-notice'),
+        modeHint: document.getElementById('mode-hint'),
+        inputErrorBox: document.getElementById('input-error-box'),
+        btnLoadSample: document.getElementById('btn-load-sample'),
+        btnGenerate: document.getElementById('btn-generate'),
+        generateBtnIcon: document.getElementById('generate-btn-icon'),
+        generateBtnLabel: document.getElementById('generate-btn-label'),
+        btnHeaderAction: document.getElementById('btn-header-action'),
+        btnDownloadHtml: document.getElementById('btn-download-html'),
+        btnExportGithub: document.getElementById('btn-export-github'),
+        exportBtnIcon: document.getElementById('export-btn-icon'),
+        exportBtnLabel: document.getElementById('export-btn-label'),
+        outputPanel: document.getElementById('output-panel'),
+        navTabButtons: document.querySelectorAll('[data-nav-tab]'),
+      };
+
+      /* ---------------- Notice Helpers ---------------- */
+      function showFileNotice(type, text) {
+        if (!text) {
+          els.fileNotice.classList.add('hidden');
+          els.fileNotice.textContent = '';
+          return;
+        }
+        els.fileNotice.className = 'notice ' + (type === 'error' ? 'notice-error' : 'notice-info');
+        els.fileNotice.textContent = text;
+      }
+
+      function renderInputControls() {
+        // Subjects
+        els.subjectGrid.innerHTML = SUBJECT_OPTIONS.map(function (subj) {
+          const active = state.subject === subj ? 'active' : '';
+          return '<button type="button" class="subject-btn ' + active + '" data-subject="' + subj + '" ' + (state.isGenerating ? 'disabled' : '') + '>' + subj + '</button>';
+        }).join('');
+
+        // Difficulties
+        els.difficultyGroup.innerHTML = DIFFICULTY_DETAILS.map(function (d) {
+          const active = state.difficulty === d.value ? 'active' : '';
+          return '<button type="button" class="diff-btn ' + active + '" data-difficulty="' + d.value + '" ' + (state.isGenerating ? 'disabled' : '') + '>' + d.label + '</button>';
+        }).join('');
+
+        const activeDiff = DIFFICULTY_DETAILS.find(function (d) { return d.value === state.difficulty; });
+        els.difficultyDesc.textContent = activeDiff ? activeDiff.description : '';
+
+        // Counts & hints
+        const textLen = state.contentText.length;
+        const trimmedLen = state.contentText.trim().length;
+        els.charCount.textContent = textLen.toLocaleString() + '자';
+        els.btnClearText.classList.toggle('hidden', textLen === 0);
+
+        if (!state.pdfFile && trimmedLen > 0 && trimmedLen < 220) {
+          els.modeHint.textContent = '단원명·키워드 입력 감지: 교과 핵심 내용을 자동으로 불러와 출제합니다.';
+          els.modeHint.style.color = '#1D4ED8';
+        } else {
+          els.modeHint.textContent = '본문·파일이 길수록 해당 자료에 맞춘 정밀 출제가 이루어집니다.';
+          els.modeHint.style.color = 'var(--text-soft)';
+        }
+
+        // Sample notice
+        if (state.sampleLoadedSubject && els.fileNotice.classList.contains('hidden')) {
+          els.sampleNotice.classList.remove('hidden');
+          els.sampleNotice.innerHTML = '<span><strong>' + escapeHtml(state.sampleLoadedSubject) + '</strong> 시연용 샘플 텍스트를 불러왔습니다. 바로 분석할 수 있습니다.</span>';
+        } else {
+          els.sampleNotice.classList.add('hidden');
+        }
+
+        // PDF chip
+        if (state.pdfFile) {
+          els.pdfChip.classList.remove('hidden');
+          els.pdfChipName.textContent = state.pdfFile.name;
+          els.pdfChipSize.textContent = 'PDF 첨부됨 · ' + formatFileSize(state.pdfFile.size);
+        } else {
+          els.pdfChip.classList.add('hidden');
+        }
+
+        // Input error
+        if (state.errorMessage) {
+          els.inputErrorBox.classList.remove('hidden');
+          els.inputErrorBox.innerHTML =
+            '<div style="flex:1;">' + escapeHtml(state.errorMessage) + '</div>' +
+            '<button type="button" id="btn-retry-inline" class="btn btn-danger-outline" style="padding:4px 10px;font-size:12px;">다시 시도</button>';
+        } else {
+          els.inputErrorBox.classList.add('hidden');
+        }
+
+        // Buttons disabled state
+        const canGen = (trimmedLen > 0 || state.pdfFile !== null) && !state.isGenerating;
+        els.btnGenerate.disabled = !canGen;
+        els.textarea.disabled = state.isGenerating;
+        els.btnLoadSample.disabled = state.isGenerating;
+        els.btnPickFile.disabled = state.isGenerating;
+
+        els.generateBtnIcon.innerHTML = state.isGenerating ? ICONS.loader : ICONS.sparkles;
+        els.generateBtnLabel.textContent = state.isGenerating
+          ? LOADING_MESSAGES[state.loadingStepIdx]
+          : '내신 자료 생성하기';
+
+        els.btnHeaderAction.textContent = (trimmedLen > 0 || state.pdfFile) ? '범위 수정하기' : '샘플 불러오기';
+
+        els.navTabButtons.forEach(function (btn) {
+          btn.disabled = !state.result;
+        });
+      }
+
+      /* ---------------- Review Note Helpers ---------------- */
+      function isSaved(id) {
+        return state.reviewItems.some(function (item) { return item.id === id; });
+      }
+
+      function upsertWrongAnswer(q, chosenIdx) {
+        const idx = state.reviewItems.findIndex(function (item) { return item.id === q.id; });
+        const payload = {
+          id: q.id,
+          reason: 'wrong-answer',
+          title: '객관식 · ' + q.questionType,
+          conceptTag: q.relatedConcept || '',
+          source: { kind: 'mc', question: q, userWrongChoice: chosenIdx },
+        };
+        if (idx >= 0) state.reviewItems[idx] = payload;
+        else state.reviewItems.push(payload);
+      }
+
+      function toggleSaveItem(id, payloadBuilder) {
+        const idx = state.reviewItems.findIndex(function (item) { return item.id === id; });
+        if (idx >= 0) {
+          state.reviewItems.splice(idx, 1);
+        } else {
+          state.reviewItems.push(payloadBuilder());
+        }
+      }
+
+      function buildCopyPayload() {
+        const r = state.result;
+        if (!r) return '';
+        const lines = [];
+        lines.push('[내신메이트 대비 노트] ' + r.subject + ' · ' + r.difficulty);
+        lines.push('단원: ' + r.summary.unitTitle);
+        lines.push('한 줄 핵심 요약: ' + stripBold(r.summary.oneLineCore));
+        lines.push('');
+        lines.push('=== 1. 핵심 개념 정리 ===');
+        (r.summary.keyConcepts || []).forEach(function (c, i) {
+          lines.push((i + 1) + '. ' + c.term + ' (' + c.category + ')');
+          lines.push('   - 설명: ' + stripBold(c.explanation));
+          lines.push('   - 출제 포인트: ' + stripBold(c.examTip));
+        });
+        lines.push('');
+        lines.push('=== 2. 출제 포인트 및 함정 ===');
+        (r.summary.examTraps || []).forEach(function (t, i) {
+          lines.push((i + 1) + '. ' + t.title);
+          lines.push('   - 함정: ' + stripBold(t.trapPoint));
+          lines.push('   - 대비법: ' + stripBold(t.howToAvoid));
+        });
+        lines.push('');
+        lines.push('=== 3. 오답 및 취약 개념 복습 노트 (' + state.reviewItems.length + '건) ===');
+        if (state.reviewItems.length === 0) {
+          lines.push('저장된 오답 및 취약 개념이 없습니다.');
+        } else {
+          state.reviewItems.forEach(function (item, idx) {
+            const origin = item.reason === 'wrong-answer' ? '오답 자동 저장' : '직접 저장';
+            lines.push('[' + (idx + 1) + '] (' + origin + ') ' + item.title);
+            if (item.source.kind === 'mc') {
+              const q = item.source.question;
+              const circle = CHOICE_CIRCLES[q.correctIndex] || (q.correctIndex + 1) + '.';
+              lines.push('   문제: ' + q.stem);
+              lines.push('   정답: ' + circle + ' ' + stripBold(q.choices[q.correctIndex] || ''));
+              lines.push('   핵심 해설: ' + stripBold(q.explanation));
+              if (q.solutionSteps && q.solutionSteps.length) {
+                lines.push('   풀이 과정: ' + q.solutionSteps.map(stripBold).join(' -> '));
+              }
+              if (q.trapNote) lines.push('   출제 함정: ' + stripBold(q.trapNote));
+            } else if (item.source.kind === 'short' || item.source.kind === 'essay') {
+              const q = item.source.question;
+              lines.push('   문제: ' + q.question);
+              lines.push('   모범 답안: ' + stripBold(q.modelAnswer));
+              lines.push('   필수 키워드: ' + (q.requiredKeywords || []).join(', '));
+              if (q.deductionTip) lines.push('   감점 주의 팁: ' + stripBold(q.deductionTip));
+            } else if (item.source.kind === 'concept') {
+              const c = item.source.concept;
+              lines.push('   설명: ' + stripBold(c.explanation));
+              lines.push('   출제 포인트: ' + stripBold(c.examTip));
+            }
+            lines.push('');
+          });
+        }
+        return lines.join('\n');
+      }
+
+      /* ---------------- Output Renderers ---------------- */
+      function renderStepsBox(steps, titleText) {
+        if (!steps || steps.length === 0) return '';
+        return (
+          '<div class="steps-box">' +
+          '<div class="steps-title">' + titleText + '</div>' +
+          steps.map(function (s, idx) {
+            const cleaned = String(s).replace(/^Step\s*\d+\s*[:.)-]?\s*/i, '');
+            return (
+              '<div class="step-row">' +
+              '<span class="step-badge">Step ' + (idx + 1) + '</span>' +
+              '<span>' + formatRichHtml(cleaned) + '</span>' +
+              '</div>'
+            );
+          }).join('') +
+          '</div>'
+        );
+      }
+
+      function renderSummaryTab(summary) {
+        const concepts = Array.isArray(summary.keyConcepts) ? summary.keyConcepts : [];
+        const traps = Array.isArray(summary.examTraps) ? summary.examTraps : [];
+
+        let conceptsHtml = '';
+        if (concepts.length === 0) {
+          conceptsHtml = '<div class="empty-box">추출된 핵심 개념 항목이 없습니다.</div>';
+        } else if (state.summaryViewMode === 'table') {
+          conceptsHtml =
+            '<div class="table-wrap"><table class="clean-table" style="min-width:600px;">' +
+            '<thead><tr>' +
+            '<th style="width:18%;">개념 / 용어</th>' +
+            '<th style="width:13%;">분류</th>' +
+            '<th style="width:39%;">핵심 설명</th>' +
+            '<th style="width:22%;">출제 포인트</th>' +
+            '<th style="width:8%;text-align:center;">저장</th>' +
+            '</tr></thead><tbody>' +
+            concepts.map(function (c, idx) {
+              const cid = 'concept-' + idx;
+              const saved = isSaved(cid);
+              return (
+                '<tr>' +
+                '<td style="font-weight:700;color:var(--navy);">' + escapeHtml(c.term) + '</td>' +
+                '<td style="font-size:12px;color:var(--text-soft);font-weight:600;">' + escapeHtml(c.category) + '</td>' +
+                '<td style="color:#334155;">' + formatRichHtml(c.explanation) + '</td>' +
+                '<td style="font-size:12.5px;color:var(--blue);font-weight:500;">' + formatRichHtml(c.examTip) + '</td>' +
+                '<td style="text-align:center;">' +
+                '<button type="button" data-save-concept="' + idx + '" class="btn ' + (saved ? 'btn-soft-blue' : 'btn-outline') + '" style="padding:6px;">' +
+                (saved ? ICONS.bookmarkSaved : ICONS.bookmark) +
+                '</button></td></tr>'
+              );
+            }).join('') +
+            '</tbody></table></div>';
+        } else {
+          conceptsHtml =
+            '<div class="two-col-grid">' +
+            concepts.map(function (c, idx) {
+              const cid = 'concept-' + idx;
+              const saved = isSaved(cid);
+              return (
+                '<div class="panel" style="display:flex;flex-direction:column;justify-content:space-between;gap:12px;">' +
+                '<div>' +
+                '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">' +
+                '<div><div style="font-size:12px;color:var(--text-soft);font-weight:600;">' + escapeHtml(c.category) + '</div>' +
+                '<div style="font-size:15.5px;font-weight:800;color:var(--navy);margin-top:2px;">' + escapeHtml(c.term) + '</div></div>' +
+                '<button type="button" data-save-concept="' + idx + '" class="btn ' + (saved ? 'btn-soft-blue' : 'btn-outline') + '" style="padding:5px 10px;font-size:12px;">' +
+                (saved ? ICONS.bookmarkSaved + ' 저장됨' : ICONS.bookmark + ' 저장') +
+                '</button></div>' +
+                '<p style="margin:10px 0 0;font-size:13.5px;color:#334155;line-height:1.65;">' + formatRichHtml(c.explanation) + '</p>' +
+                '</div>' +
+                '<div style="padding-top:10px;border-top:1px solid var(--bg-subtle);font-size:12px;color:var(--blue);font-weight:600;">출제 포인트: ' + formatRichHtml(c.examTip) + '</div>' +
+                '</div>'
+              );
+            }).join('') +
+            '</div>';
+        }
+
+        const trapsHtml = traps.length === 0
+          ? '<div class="empty-box">정리된 출제 함정 항목이 없습니다.</div>'
+          : '<div class="stack-md">' + traps.map(function (t, idx) {
+              return (
+                '<div class="panel">' +
+                '<div style="display:flex;align-items:flex-start;gap:12px;">' +
+                '<span class="font-mono" style="font-size:12px;font-weight:700;color:#D97706;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:6px;padding:4px 8px;flex-shrink:0;">' +
+                String(idx + 1).padStart(2, '0') +
+                '</span>' +
+                '<div style="flex:1;min-width:0;">' +
+                '<h5 style="margin:0;font-size:15px;font-weight:700;color:var(--text);">' + escapeHtml(t.title) + '</h5>' +
+                '<div class="two-col-grid" style="margin-top:12px;">' +
+                '<div class="trap-card"><div style="font-size:11.5px;font-weight:800;color:var(--amber-text);margin-bottom:4px;">자주 꼬는 함정 방식</div><div style="font-size:13px;line-height:1.6;">' + formatRichHtml(t.trapPoint) + '</div></div>' +
+                '<div style="border-radius:11px;border:1px solid var(--border);background:var(--bg-page);padding:14px;"><div style="font-size:11.5px;font-weight:800;color:var(--navy);margin-bottom:4px;">정답 판별 및 대비법</div><div style="font-size:13px;line-height:1.6;">' + formatRichHtml(t.howToAvoid) + '</div></div>' +
+                '</div></div></div></div>'
+              );
+            }).join('') + '</div>';
+
+        return (
+          '<div class="stack-lg">' +
+          '<div style="border-radius:13px;border:1px solid var(--blue-border);background:rgba(239,246,255,0.65);padding:20px;">' +
+          '<div style="font-size:12px;font-weight:700;color:var(--blue);">단원 핵심 요약</div>' +
+          '<h3 style="margin:6px 0 0;font-size:19px;font-weight:800;color:var(--navy);">' + escapeHtml(summary.unitTitle) + '</h3>' +
+          '<p style="margin:8px 0 0;font-size:14.5px;color:#1E293B;line-height:1.65;font-weight:500;">' + formatRichHtml(summary.oneLineCore) + '</p>' +
+          '</div>' +
+
+          '<div>' +
+          '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">' +
+          '<div><h4 style="margin:0;font-size:16px;font-weight:800;color:var(--navy);">핵심 개념 · 용어 · 공식 정리</h4>' +
+          '<p style="margin:3px 0 0;font-size:12px;color:var(--text-soft);">헷갈리는 개념은 복습 노트에 바로 저장해 집중 암기할 수 있습니다.</p></div>' +
+          '<div style="display:flex;gap:4px;padding:4px;background:var(--bg-subtle);border:1px solid var(--border);border-radius:9px;">' +
+          '<button type="button" data-summary-view="table" class="diff-btn ' + (state.summaryViewMode === 'table' ? 'active' : '') + '" style="padding:5px 11px;font-size:12px;">표 보기</button>' +
+          '<button type="button" data-summary-view="cards" class="diff-btn ' + (state.summaryViewMode === 'cards' ? 'active' : '') + '" style="padding:5px 11px;font-size:12px;">카드 보기</button>' +
+          '</div></div>' +
+          conceptsHtml +
+          '</div>' +
+
+          '<div>' +
+          '<div style="margin-bottom:12px;"><h4 style="margin:0;font-size:16px;font-weight:800;color:var(--navy);">출제 포인트 및 주의할 함정</h4>' +
+          '<p style="margin:3px 0 0;font-size:12px;color:var(--text-soft);">객관식 선지나 서술형 조건에서 출제자가 자주 변형하는 핵심 함정입니다.</p></div>' +
+          trapsHtml +
+          '</div>' +
+          '</div>'
+        );
+      }
+
+      function renderMultipleChoiceTab(questions) {
+        if (!questions || questions.length === 0) {
+          return '<div class="empty-box">생성된 객관식 문항이 없습니다.</div>';
+        }
+
+        const answeredCount = questions.filter(function (q) { return state.selectedChoices[q.id] !== undefined; }).length;
+        const revealedCount = questions.filter(function (q) { return Boolean(state.revealedAnswers[q.id]); }).length;
+        const correctCount = questions.filter(function (q) {
+          return state.revealedAnswers[q.id] && state.selectedChoices[q.id] === q.correctIndex;
+        }).length;
+
+        const topBar =
+          '<div class="status-bar">' +
+          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;color:#334155;">' +
+          '<strong style="color:var(--navy);">객관식 5지선다</strong> · ' +
+          '<span class="font-mono">선택 ' + answeredCount + '/' + questions.length + '</span>' +
+          (revealedCount > 0 ? ' · <span class="font-mono" style="color:var(--blue);font-weight:700;">정답 ' + correctCount + '/' + revealedCount + '</span>' : '') +
+          '</div>' +
+          '<div style="display:flex;gap:8px;">' +
+          '<button type="button" id="btn-mc-reset" class="btn btn-outline" style="padding:6px 11px;font-size:12px;">' + ICONS.rotate + ' 다시 풀기</button>' +
+          '<button type="button" id="btn-mc-reveal-all" class="btn btn-navy" style="padding:6px 11px;font-size:12px;">' + ICONS.eye + ' 전체 정답 확인</button>' +
+          '</div></div>';
+
+        const cards = questions.map(function (q, qIdx) {
+          const choices = Array.isArray(q.choices) ? q.choices : [];
+          const wrongReasons = Array.isArray(q.wrongReasons) ? q.wrongReasons : [];
+          const steps = Array.isArray(q.solutionSteps) ? q.solutionSteps : [];
+          const safeIdx = Math.max(0, Math.min(Math.max(0, choices.length - 1), q.correctIndex || 0));
+          const sel = state.selectedChoices[q.id];
+          const rev = Boolean(state.revealedAnswers[q.id]);
+          const saved = isSaved(q.id);
+          const numLabel = String(qIdx + 1).padStart(2, '0');
+
+          const choicesHtml = choices.map(function (cText, cIdx) {
+            const circle = CHOICE_CIRCLES[cIdx] || (cIdx + 1) + '.';
+            const isSel = sel === cIdx;
+            const isRight = cIdx === safeIdx;
+            let cls = '';
+            let badge = '';
+
+            if (!rev) {
+              if (isSel) cls = 'selected';
+            } else {
+              if (isRight) {
+                cls = 'correct';
+                badge = '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--emerald-text);flex-shrink:0;">' + ICONS.checkCircle + ' 정답</span>';
+              } else if (isSel) {
+                cls = 'wrong-selected';
+                badge = '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--red-text);flex-shrink:0;">' + ICONS.xCircle + ' 선택한 오답</span>';
+              } else {
+                cls = 'dimmed';
+              }
+            }
+
+            return (
+              '<button type="button" data-mc-id="' + escapeHtml(q.id) + '" data-choice-idx="' + cIdx + '" class="choice-btn ' + cls + '" ' + (rev ? 'disabled' : '') + '>' +
+              '<div class="choice-left"><span class="choice-num">' + circle + '</span><span class="choice-text">' + formatRichHtml(cText) + '</span></div>' +
+              badge +
+              '</button>'
+            );
+          }).join('');
+
+          let statusNote = '<span style="color:#94A3B8;">원하는 선지를 클릭한 뒤 정답을 확인해 보세요.</span>';
+          if (rev && sel === safeIdx) {
+            statusNote = '<span style="display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--emerald-text);">' + ICONS.checkCircle + ' 정답입니다! 아래 상세 해설을 확인해 보세요.</span>';
+          } else if (rev && sel !== undefined) {
+            statusNote = '<span style="display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--red-text);">' + ICONS.xCircle + ' 오답입니다. 복습 노트에 자동으로 추가되었습니다.</span>';
+          } else if (rev) {
+            statusNote = '<span style="font-weight:600;color:var(--text-muted);">정답은 ' + (CHOICE_CIRCLES[safeIdx] || (safeIdx + 1) + '번') + '입니다.</span>';
+          } else if (sel !== undefined) {
+            statusNote = '<span style="font-weight:700;color:var(--blue);">' + (CHOICE_CIRCLES[sel] || (sel + 1) + '번') + '을 선택했습니다.</span>';
+          }
+
+          let explainHtml = '';
+          if (rev) {
+            explainHtml =
+              '<div class="explain-panel">' +
+              '<div>' +
+              '<div class="explain-heading"><span>✅ 정답 및 핵심 요약</span><span class="answer-tag">정답 ' + (CHOICE_CIRCLES[safeIdx] || (safeIdx + 1) + '번') + '</span></div>' +
+              '<p style="margin:0;font-size:14.5px;color:#1E293B;line-height:1.75;">' + formatRichHtml(q.explanation) + '</p>' +
+              renderStepsBox(steps, '📐 단계별 풀이 과정 (Step-by-Step)') +
+              '</div>' +
+
+              (wrongReasons.length > 0
+                ? '<div class="explain-divider">' +
+                  '<div class="explain-heading">🔍 오답 선지 정밀 분석 (①~⑤ 전체 풀이)</div>' +
+                  '<div style="display:flex;flex-direction:column;gap:8px;">' +
+                  wrongReasons.map(function (reason, idx) {
+                    const isRight = idx === safeIdx;
+                    return (
+                      '<div class="wrong-item ' + (isRight ? 'is-right' : '') + '">' +
+                      '<span style="font-weight:800;flex-shrink:0;color:' + (isRight ? 'var(--emerald-text)' : 'var(--text-soft)') + ';">' + (CHOICE_CIRCLES[idx] || (idx + 1) + '.') + '</span>' +
+                      '<div style="flex:1;min-width:0;">' +
+                      '<span style="font-size:11.5px;font-weight:800;margin-right:6px;color:' + (isRight ? 'var(--emerald-text)' : 'var(--red-text)') + ';">[' + (isRight ? '정답 근거' : '오답 이유') + ']</span>' +
+                      formatRichHtml(reason) +
+                      '</div></div>'
+                    );
+                  }).join('') +
+                  '</div></div>'
+                : '') +
+
+              ((q.trapNote || q.coreConceptNote)
+                ? '<div class="explain-divider">' +
+                  '<div class="explain-heading">💡 출제자의 함정 & 핵심 개념 정리</div>' +
+                  '<div class="two-col-grid">' +
+                  (q.trapNote ? '<div class="trap-card"><div style="font-size:12px;font-weight:800;color:var(--amber-text);margin-bottom:5px;">출제자가 파놓은 함정 포인트</div><div style="font-size:13.5px;line-height:1.65;">' + formatRichHtml(q.trapNote) + '</div></div>' : '') +
+                  (q.coreConceptNote ? '<div class="concept-note-card"><div style="font-size:12px;font-weight:800;color:var(--blue);margin-bottom:5px;">필수 암기 · 교과 핵심 개념</div><div style="font-size:13.5px;line-height:1.65;">' + formatRichHtml(q.coreConceptNote) + '</div></div>' : '') +
+                  '</div></div>'
+                : '') +
+              '</div>';
+          }
+
+          return (
+            '<article class="exam-card">' +
+            '<div class="exam-card-head">' +
+            '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:var(--text-soft);">' +
+            '<span class="pill-badge">문제 ' + numLabel + '</span>' +
+            '<strong style="color:#334155;">' + escapeHtml(q.questionType) + '</strong>' +
+            (q.relatedConcept ? ' · <span>' + escapeHtml(q.relatedConcept) + '</span>' : '') +
+            '</div>' +
+            '<button type="button" data-save-mc="' + escapeHtml(q.id) + '" class="btn ' + (saved ? 'btn-soft-blue' : 'btn-outline') + '" style="padding:6px 11px;font-size:12px;">' +
+            (saved ? ICONS.bookmarkSaved + ' 복습 노트 저장됨' : ICONS.bookmark + ' 취약 개념으로 저장') +
+            '</button></div>' +
+
+            '<h3 class="question-stem">' + formatStemHtml(q.stem) + '</h3>' +
+
+            (q.passageOrBox && q.passageOrBox.trim()
+              ? '<div class="bogi-box"><div class="bogi-title">&lt; 보 기 &gt;</div><div class="bogi-body">' + formatRichHtml(q.passageOrBox) + '</div></div>'
+              : '') +
+
+            '<div class="choice-list">' + choicesHtml + '</div>' +
+
+            '<div class="card-footer">' +
+            '<div style="font-size:13px;">' + statusNote + '</div>' +
+            '<button type="button" data-toggle-mc="' + escapeHtml(q.id) + '" class="btn ' + (rev ? 'btn-soft-slate' : 'btn-primary') + '">' +
+            ICONS.eye + (rev ? ' 해설 접기' : ' 정답 및 해설 보기') +
+            '</button></div>' +
+            explainHtml +
+            '</article>'
+          );
+        }).join('');
+
+        return '<div class="stack-lg">' + topBar + '<div class="stack-lg">' + cards + '</div></div>';
+      }
+
+      function renderConstructedTab(shortArr, essayArr) {
+        const safeShort = Array.isArray(shortArr) ? shortArr : [];
+        const safeEssay = Array.isArray(essayArr) ? essayArr : [];
+
+        if (safeShort.length === 0 && safeEssay.length === 0) {
+          return '<div class="empty-box">생성된 단답형 및 서술형 문항이 없습니다.</div>';
+        }
+
+        const shortCards = safeShort.map(function (q, idx) {
+          const rev = Boolean(state.shortRevealed[q.id]);
+          const hint = Boolean(state.shortHints[q.id]);
+          const saved = isSaved(q.id);
+          const draft = state.shortDrafts[q.id] || '';
+          const rubric = Array.isArray(q.gradingRubric) ? q.gradingRubric : [];
+          const kws = Array.isArray(q.requiredKeywords) ? q.requiredKeywords : [];
+          const steps = Array.isArray(q.solutionSteps) ? q.solutionSteps : [];
+
+          return (
+            '<article class="exam-card">' +
+            '<div class="exam-card-head">' +
+            '<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-soft);">' +
+            '<span class="pill-badge">단답형 ' + String(idx + 1).padStart(2, '0') + '</span>' +
+            (q.relatedConcept ? '<strong style="color:#334155;">' + escapeHtml(q.relatedConcept) + '</strong>' : '') +
+            '</div>' +
+            '<button type="button" data-save-short="' + escapeHtml(q.id) + '" class="btn ' + (saved ? 'btn-soft-blue' : 'btn-outline') + '" style="padding:6px 11px;font-size:12px;">' +
+            (saved ? ICONS.bookmarkSaved + ' 복습 노트 저장됨' : ICONS.bookmark + ' 취약 개념으로 저장') +
+            '</button></div>' +
+
+            '<h4 class="question-stem">' + formatStemHtml(q.question) + '</h4>' +
+
+            '<div style="margin-top:16px;">' +
+            '<label style="display:block;font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">내 답안 작성 (자가 점검용)</label>' +
+            '<input type="text" data-short-draft="' + escapeHtml(q.id) + '" value="' + escapeHtml(draft) + '" class="text-input" placeholder="핵심 용어 또는 정답을 직접 적어보세요..." />' +
+            '</div>' +
+
+            '<div class="card-footer">' +
+            (q.hint ? '<button type="button" data-toggle-hint="' + escapeHtml(q.id) + '" class="btn btn-soft-slate" style="padding:6px 11px;font-size:12px;">' + (hint ? '힌트 숨기기' : '힌트 보기') + '</button>' : '<span></span>') +
+            '<button type="button" data-toggle-short="' + escapeHtml(q.id) + '" class="btn ' + (rev ? 'btn-soft-slate' : 'btn-primary') + '">' +
+            ICONS.eye + (rev ? ' 모범 답안 숨기기' : ' 모범 답안 및 채점 기준 보기') +
+            '</button></div>' +
+
+            (hint && q.hint ? '<div class="notice notice-warn" style="margin-top:12px;margin-bottom:0;">힌트: ' + formatRichHtml(q.hint) + '</div>' : '') +
+
+            (rev
+              ? '<div class="explain-panel">' +
+                '<div><div class="explain-heading">✍️ 모범 답안</div>' +
+                '<div style="border-radius:11px;border:1px solid var(--emerald-border);background:#FFFFFF;padding:14px;font-size:16px;font-weight:800;color:var(--navy);">' + formatRichHtml(q.modelAnswer) + '</div>' +
+                renderStepsBox(steps, '📐 단계별 풀이 과정 (Step-by-Step)') +
+                '</div>' +
+
+                '<div class="explain-divider">' +
+                '<div class="explain-heading">📋 단계별 채점 기준 (부분 점수 가이드)</div>' +
+                (kws.length ? '<div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px;">' + kws.map(function (k) { return '<span class="kw-chip">' + escapeHtml(k) + '</span>'; }).join('') + '</div>' : '') +
+                (rubric.length
+                  ? '<div class="table-wrap"><table class="clean-table"><thead><tr><th>채점 기준</th><th style="width:90px;text-align:right;">배점</th></tr></thead><tbody>' +
+                    rubric.map(function (r) {
+                      return '<tr><td>' + formatRichHtml(r.criterion) + '</td><td class="font-mono" style="text-align:right;font-weight:700;color:var(--blue);">' + escapeHtml(r.points) + '</td></tr>';
+                    }).join('') +
+                    '</tbody></table></div>'
+                  : '') +
+                (q.gradingCriteria ? '<p style="margin:10px 0 0;font-size:13px;background:rgba(255,255,255,0.85);border:1px solid #BAE6FD;border-radius:8px;padding:10px 12px;">' + formatRichHtml(q.gradingCriteria) + '</p>' : '') +
+                '</div>' +
+
+                (q.deductionTip ? '<div class="explain-divider"><div class="trap-card"><div style="font-size:12.5px;font-weight:800;color:var(--amber-text);margin-bottom:4px;">⚠️ 감점 주의 팁</div><div style="font-size:13.5px;line-height:1.65;">' + formatRichHtml(q.deductionTip) + '</div></div></div>' : '') +
+                '</div>'
+              : '') +
+            '</article>'
+          );
+        }).join('');
+
+        const essayCards = safeEssay.map(function (q, idx) {
+          const rev = Boolean(state.essayRevealed[q.id]);
+          const saved = isSaved(q.id);
+          const draft = state.essayDrafts[q.id] || '';
+          const conds = Array.isArray(q.conditions) ? q.conditions : [];
+          const kws = Array.isArray(q.requiredKeywords) ? q.requiredKeywords : [];
+          const criteria = Array.isArray(q.gradingCriteria) ? q.gradingCriteria : [];
+          const steps = Array.isArray(q.solutionSteps) ? q.solutionSteps : [];
+
+          return (
+            '<article class="exam-card">' +
+            '<div class="exam-card-head">' +
+            '<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-soft);">' +
+            '<span class="pill-badge navy">서술형 ' + String(idx + 1).padStart(2, '0') + '</span>' +
+            (q.relatedConcept ? '<strong style="color:#334155;">' + escapeHtml(q.relatedConcept) + '</strong>' : '') +
+            '</div>' +
+            '<button type="button" data-save-essay="' + escapeHtml(q.id) + '" class="btn ' + (saved ? 'btn-soft-blue' : 'btn-outline') + '" style="padding:6px 11px;font-size:12px;">' +
+            (saved ? ICONS.bookmarkSaved + ' 복습 노트 저장됨' : ICONS.bookmark + ' 취약 개념으로 저장') +
+            '</button></div>' +
+
+            '<h4 class="question-stem">' + formatStemHtml(q.question) + '</h4>' +
+
+            (conds.length
+              ? '<div class="bogi-box"><div style="font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;">&lt; 서술형 작성 조건 &gt;</div>' +
+                conds.map(function (c, i) {
+                  return '<div style="font-size:13.5px;line-height:1.65;display:flex;gap:8px;"><span class="font-mono" style="font-weight:700;color:var(--blue);">' + (i + 1) + '.</span><span>' + formatRichHtml(c) + '</span></div>';
+                }).join('') + '</div>'
+              : '') +
+
+            '<div style="margin-top:16px;">' +
+            '<label style="display:block;font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">내 서술형 답안 작성 (자가 점검용)</label>' +
+            '<textarea rows="3" data-essay-draft="' + escapeHtml(q.id) + '" class="textarea" placeholder="위 조건을 모두 만족하도록 완결된 문장으로 작성해 보세요...">' + escapeHtml(draft) + '</textarea>' +
+            '</div>' +
+
+            '<div class="card-footer" style="justify-content:flex-end;">' +
+            '<button type="button" data-toggle-essay="' + escapeHtml(q.id) + '" class="btn ' + (rev ? 'btn-soft-slate' : 'btn-primary') + '">' +
+            ICONS.eye + (rev ? ' 모범 답안 숨기기' : ' 모범 답안 및 채점 기준 보기') +
+            '</button></div>' +
+
+            (rev
+              ? '<div class="explain-panel">' +
+                '<div><div class="explain-heading">✍️ 모범 답안 (만점 예시)</div>' +
+                '<div style="border-radius:11px;border:1px solid var(--emerald-border);background:#FFFFFF;padding:15px;font-size:14.5px;line-height:1.7;font-weight:500;color:var(--text);">' + formatRichHtml(q.modelAnswer) + '</div>' +
+                renderStepsBox(steps, '📐 단계별 풀이 및 논리 전개 (Step-by-Step)') +
+                '</div>' +
+
+                '<div class="explain-divider">' +
+                '<div class="explain-heading">📋 단계별 채점 기준 (부분 점수 가이드)</div>' +
+                (kws.length ? '<div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px;">' + kws.map(function (k) { return '<span class="kw-chip">' + escapeHtml(k) + '</span>'; }).join('') + '</div>' : '') +
+                (criteria.length
+                  ? '<div class="table-wrap"><table class="clean-table"><thead><tr><th>채점 항목 (키워드 및 인과관계)</th><th style="width:90px;text-align:right;">배점</th></tr></thead><tbody>' +
+                    criteria.map(function (c) {
+                      return '<tr><td>' + formatRichHtml(c.criterion) + '</td><td class="font-mono" style="text-align:right;font-weight:700;color:var(--blue);">' + escapeHtml(c.points) + '</td></tr>';
+                    }).join('') +
+                    '</tbody></table></div>'
+                  : '') +
+                '</div>' +
+
+                (q.deductionTip ? '<div class="explain-divider"><div class="trap-card"><div style="font-size:12.5px;font-weight:800;color:var(--amber-text);margin-bottom:4px;">⚠️ 감점 주의 팁</div><div style="font-size:13.5px;line-height:1.65;">' + formatRichHtml(q.deductionTip) + '</div></div></div>' : '') +
+                '</div>'
+              : '') +
+            '</article>'
+          );
+        }).join('');
+
+        return (
+          '<div class="stack-lg">' +
+          '<section><h3 style="margin:0 0 12px;font-size:16px;font-weight:800;color:var(--navy);">단답형 예상 문제 (' + safeShort.length + '문제)</h3><div class="stack-lg">' + shortCards + '</div></section>' +
+          '<section><h3 style="margin:0 0 12px;font-size:16px;font-weight:800;color:var(--navy);">조건형 서술형 대비 문제 (' + safeEssay.length + '문제)</h3><div class="stack-lg">' + essayCards + '</div></section>' +
+          '</div>'
+        );
+      }
+
+      function renderReviewTab() {
+        const items = state.reviewItems;
+
+        if (state.quizMode && items.length > 0) {
+          const cards = items.map(function (item, idx) {
+            const numLabel = String(idx + 1).padStart(2, '0');
+            const rev = Boolean(state.quizRevealed[item.id]);
+
+            if (item.source.kind === 'mc') {
+              const q = item.source.question;
+              const sel = state.quizChoices[item.id];
+              return (
+                '<article class="exam-card">' +
+                '<div class="exam-card-head"><div style="display:flex;align-items:center;gap:8px;font-size:12.5px;"><span class="pill-badge">복습 ' + numLabel + '</span><strong>객관식</strong></div></div>' +
+                '<h4 class="question-stem">' + formatStemHtml(q.stem) + '</h4>' +
+                (q.passageOrBox ? '<div class="bogi-box"><div class="bogi-title">&lt; 보 기 &gt;</div><div class="bogi-body">' + formatRichHtml(q.passageOrBox) + '</div></div>' : '') +
+                '<div class="choice-list">' +
+                q.choices.map(function (c, cIdx) {
+                  let cls = '';
+                  if (!rev && sel === cIdx) cls = 'selected';
+                  else if (rev) {
+                    if (cIdx === q.correctIndex) cls = 'correct';
+                    else if (sel === cIdx) cls = 'wrong-selected';
+                    else cls = 'dimmed';
+                  }
+                  return '<button type="button" data-quiz-mc="' + escapeHtml(item.id) + '" data-choice-idx="' + cIdx + '" class="choice-btn ' + cls + '" ' + (rev ? 'disabled' : '') + '><div class="choice-left"><span class="choice-num">' + (CHOICE_CIRCLES[cIdx] || (cIdx + 1) + '.') + '</span><span class="choice-text">' + formatRichHtml(c) + '</span></div></button>';
+                }).join('') +
+                '</div>' +
+                '<div class="card-footer" style="justify-content:flex-end;"><button type="button" data-quiz-reveal="' + escapeHtml(item.id) + '" class="btn btn-primary">' + ICONS.eye + (rev ? ' 해설 접기' : ' 정답 및 해설 보기') + '</button></div>' +
+                (rev ? '<div class="explain-panel"><div><div class="explain-heading">✅ 정답 ' + (CHOICE_CIRCLES[q.correctIndex] || '') + ' · 핵심 해설</div><p style="margin:0;font-size:14px;line-height:1.7;">' + formatRichHtml(q.explanation) + '</p>' + renderStepsBox(q.solutionSteps, '📐 단계별 풀이') + '</div></div>' : '') +
+                '</article>'
+              );
+            }
+
+            if (item.source.kind === 'short' || item.source.kind === 'essay') {
+              const q = item.source.question;
+              const isEssay = item.source.kind === 'essay';
+              return (
+                '<article class="exam-card">' +
+                '<div class="exam-card-head"><div style="display:flex;align-items:center;gap:8px;font-size:12.5px;"><span class="pill-badge navy">복습 ' + numLabel + '</span><strong>' + (isEssay ? '서술형' : '단답형') + '</strong></div></div>' +
+                '<h4 class="question-stem">' + formatStemHtml(q.question) + '</h4>' +
+                '<textarea rows="' + (isEssay ? 3 : 2) + '" data-quiz-draft="' + escapeHtml(item.id) + '" class="textarea" style="margin-top:14px;" placeholder="기억을 떠올려 답안을 다시 작성해 보세요...">' + escapeHtml(state.quizDrafts[item.id] || '') + '</textarea>' +
+                '<div class="card-footer" style="justify-content:flex-end;"><button type="button" data-quiz-reveal="' + escapeHtml(item.id) + '" class="btn btn-primary">' + ICONS.eye + (rev ? ' 답안 접기' : ' 모범 답안 확인') + '</button></div>' +
+                (rev ? '<div class="explain-panel"><div><div class="explain-heading">✍️ 모범 답안</div><div>' + formatRichHtml(q.modelAnswer) + '</div></div></div>' : '') +
+                '</article>'
+              );
+            }
+
+            const c = item.source.concept;
+            return (
+              '<article class="exam-card">' +
+              '<div class="exam-card-head"><div style="display:flex;align-items:center;gap:8px;font-size:12.5px;"><span class="pill-badge">복습 ' + numLabel + '</span><strong>핵심 개념 인출</strong></div></div>' +
+              '<h4 style="margin:16px 0 6px;font-size:18px;font-weight:800;color:var(--navy);">' + escapeHtml(c.term) + '</h4>' +
+              '<div class="card-footer" style="justify-content:flex-end;"><button type="button" data-quiz-reveal="' + escapeHtml(item.id) + '" class="btn btn-primary">' + ICONS.eye + (rev ? ' 설명 가리기' : ' 개념 설명 확인') + '</button></div>' +
+              (rev ? '<div class="explain-panel"><p style="margin:0;">' + formatRichHtml(c.explanation) + '</p><p style="margin:8px 0 0;font-weight:700;color:var(--blue);">출제 포인트: ' + formatRichHtml(c.examTip) + '</p></div>' : '') +
+              '</article>'
+            );
+          }).join('');
+
+          return (
+            '<div class="stack-lg">' +
+            '<div class="status-bar" style="background:rgba(239,246,255,0.7);border-color:var(--blue-border);">' +
+            '<div><strong style="color:var(--navy);font-size:14px;">복습용 퀴즈 재도전 모드</strong><div style="font-size:12px;color:var(--text-muted);">저장된 ' + items.length + '개 항목을 다시 확인해 보세요.</div></div>' +
+            '<div style="display:flex;gap:8px;">' +
+            '<button type="button" id="btn-quiz-reset" class="btn btn-outline" style="padding:6px 11px;font-size:12px;">' + ICONS.rotate + ' 선택 초기화</button>' +
+            '<button type="button" id="btn-quiz-exit" class="btn btn-navy" style="padding:6px 11px;font-size:12px;">' + ICONS.arrowLeft + ' 복습 노트로 돌아가기</button>' +
+            '</div></div>' +
+            '<div class="stack-lg">' + cards + '</div></div>'
+          );
+        }
+
+        const copyLabel = state.copyStatus === 'copied' ? '전체 내용 복사됨' : state.copyStatus === 'error' ? '복사 권한 확인 필요' : '전체 내용 복사하기';
+        const topBar =
+          '<div class="status-bar">' +
+          '<div style="font-size:13px;"><strong style="color:var(--navy);">저장된 복습 항목</strong> · <span class="font-mono" style="font-weight:700;color:var(--blue);">' + items.length + '건</span></div>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
+          '<button type="button" id="btn-start-quiz" class="btn btn-primary" style="padding:6px 12px;font-size:12px;" ' + (items.length === 0 ? 'disabled' : '') + '>' + ICONS.rotate + ' 복습용 퀴즈 다시 풀기</button>' +
+          '<button type="button" id="btn-copy-all" class="btn btn-outline" style="padding:6px 12px;font-size:12px;">' + (state.copyStatus === 'copied' ? ICONS.check : ICONS.copy) + ' ' + copyLabel + '</button>' +
+          (items.length > 0 ? '<button type="button" id="btn-clear-review" class="btn-link-danger">' + ICONS.trash + ' 전체 비우기</button>' : '') +
+          '</div></div>';
+
+        const body = items.length === 0
+          ? '<div class="empty-box"><div style="font-weight:700;color:var(--text);font-size:15px;">아직 저장된 오답이나 취약 개념이 없습니다</div><p style="margin:8px auto 0;max-width:420px;line-height:1.6;">객관식 예상 문제를 풀고 틀리거나, 핵심 요약 및 문제 카드에서 ‘취약 개념으로 저장’ 버튼을 누르면 이곳에 자동으로 모아집니다.</p></div>'
+          : '<div class="stack-md">' + items.map(function (item, idx) {
+              const isWrong = item.reason === 'wrong-answer';
+              let inner = '';
+              if (item.source.kind === 'mc') {
+                const q = item.source.question;
+                inner =
+                  '<p style="margin:12px 0;font-weight:700;font-size:15.5px;line-height:1.65;">' + formatStemHtml(q.stem) + '</p>' +
+                  '<div class="explain-panel" style="margin-top:0;padding:14px;">' +
+                  '<div style="font-weight:700;color:var(--emerald-text);font-size:13.5px;">✅ 정답: ' + (CHOICE_CIRCLES[q.correctIndex] || '') + ' ' + formatRichHtml(q.choices[q.correctIndex] || '') + '</div>' +
+                  (item.source.userWrongChoice !== undefined ? '<div style="font-weight:700;color:var(--red-text);font-size:13px;">내가 선택한 오답: ' + (CHOICE_CIRCLES[item.source.userWrongChoice] || '') + ' ' + formatRichHtml(q.choices[item.source.userWrongChoice] || '') + '</div>' : '') +
+                  '<div style="font-size:13.5px;line-height:1.65;">' + formatRichHtml(q.explanation) + '</div>' +
+                  (q.trapNote ? '<div class="trap-card" style="padding:10px 12px;font-size:12.5px;"><strong>💡 함정 포인트:</strong> ' + formatRichHtml(q.trapNote) + '</div>' : '') +
+                  '</div>';
+              } else if (item.source.kind === 'short' || item.source.kind === 'essay') {
+                const q = item.source.question;
+                inner =
+                  '<p style="margin:12px 0;font-weight:700;font-size:15.5px;line-height:1.65;">' + formatStemHtml(q.question) + '</p>' +
+                  '<div class="explain-panel" style="margin-top:0;padding:14px;">' +
+                  '<div style="font-weight:700;color:var(--emerald-text);font-size:13.5px;">✍️ 모범 답안: ' + formatRichHtml(q.modelAnswer) + '</div>' +
+                  '<div style="font-size:13px;color:var(--text-muted);">필수 키워드: ' + escapeHtml((q.requiredKeywords || []).join(', ')) + '</div>' +
+                  '</div>';
+              } else if (item.source.kind === 'concept') {
+                const c = item.source.concept;
+                inner =
+                  '<h4 style="margin:12px 0 6px;font-size:16px;font-weight:800;color:var(--navy);">' + escapeHtml(c.term) + '</h4>' +
+                  '<p style="margin:0;font-size:13.5px;color:#334155;line-height:1.65;">' + formatRichHtml(c.explanation) + '</p>' +
+                  '<p style="margin:6px 0 0;font-size:12.5px;font-weight:700;color:var(--blue);">출제 포인트: ' + formatRichHtml(c.examTip) + '</p>';
+              }
+
+              return (
+                '<article class="exam-card">' +
+                '<div class="exam-card-head">' +
+                '<div style="display:flex;align-items:center;gap:8px;font-size:12px;">' +
+                '<span class="pill-badge ' + (isWrong ? 'red' : '') + '">노트 ' + String(idx + 1).padStart(2, '0') + '</span>' +
+                '<strong style="color:' + (isWrong ? 'var(--red-text)' : 'var(--blue)') + ';">' + (isWrong ? '오답 자동 기록' : '취약 개념 저장') + '</strong>' +
+                (item.conceptTag ? ' · <span style="color:var(--text-muted);">' + escapeHtml(item.conceptTag) + '</span>' : '') +
+                '</div>' +
+                '<button type="button" data-remove-review="' + escapeHtml(item.id) + '" class="btn btn-outline" style="padding:5px 10px;font-size:12px;">' + ICONS.trash + ' 복습 완료(삭제)</button>' +
+                '</div>' +
+                inner +
+                '</article>'
+              );
+            }).join('') + '</div>';
+
+        return '<div class="stack-lg">' + topBar + body + '</div>';
+      }
+
+      function renderOutputPanel() {
+        if (state.isGenerating) {
+          els.outputPanel.innerHTML =
+            '<div class="panel loading-card">' +
+            '<div class="spinner-box">' + ICONS.loaderLg + '</div>' +
+            '<h2 style="margin:16px 0 0;font-size:18px;font-weight:800;color:var(--navy);">' + escapeHtml(state.subject + ' · ' + state.difficulty) + ' 맞춤 자료를 출제하고 있습니다</h2>' +
+            '<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:var(--blue);">' + escapeHtml(LOADING_MESSAGES[state.loadingStepIdx]) + '</p>' +
+            '<div class="skeleton-stack"><div class="skeleton-bar"></div><div class="skeleton-bar" style="width:82%;"></div><div class="skeleton-bar" style="width:68%;"></div></div>' +
+            '</div>';
+          return;
+        }
+
+        if (!state.result) {
+          els.outputPanel.innerHTML =
+            '<div class="panel">' +
+            '<div class="panel-head">' +
+            '<div><h2 class="panel-title">생성될 내신 대비 학습 구성</h2><p class="panel-desc">왼쪽에서 시험 범위를 입력하거나 샘플을 불러와 생성을 실행해 주세요.</p></div>' +
+            '<button type="button" id="btn-quick-sample" class="btn btn-primary">' + escapeHtml(state.subject) + ' 샘플로 바로 체험하기 ' + ICONS.arrowRight + '</button>' +
+            '</div>' +
+            '<div class="overview-grid">' +
+            '<div class="overview-item"><div class="overview-item-title">01. 시험 대비 핵심 요약정리</div><p class="overview-item-desc">단원 한 줄 핵심 요약, 시험 빈출 용어·공식·사건 비교표, 선지/서술형에서 자주 꼬는 출제 함정 3~5가지를 정리합니다.</p></div>' +
+            '<div class="overview-item"><div class="overview-item-title">02. 객관식 예상 문제 (4문제)</div><p class="overview-item-desc">5지선다 4문항과 함께 정답 핵심 근거, ①~⑤ 선지별 오답 분석, 출제자의 함정·핵심 개념 정리를 제공합니다.</p></div>' +
+            '<div class="overview-item"><div class="overview-item-title">03. 단답형 & 조건형 서술형 (4문제)</div><p class="overview-item-desc">핵심 용어를 묻는 단답형 2문항과 필수 포함 조건이 명시된 서술형 2문항, 단계별 배점표·감점 주의 팁을 제공합니다.</p></div>' +
+            '<div class="overview-item"><div class="overview-item-title">04. 오답 · 취약 개념 복습 노트</div><p class="overview-item-desc">틀린 문제와 직접 저장한 취약 개념만 따로 모아 퀴즈 재도전 및 전체 학습 노트 클립보드 복사를 지원합니다.</p></div>' +
+            '</div></div>';
+          return;
+        }
+
+        const r = state.result;
+        const tabHeader =
+          '<div class="panel">' +
+          '<div class="result-meta">' +
+          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;color:var(--text-soft);">' +
+          '<strong style="color:var(--navy);font-size:14.5px;">' + escapeHtml(r.subject) + '</strong> · ' +
+          '<strong style="color:var(--blue);">' + escapeHtml(r.difficulty) + '</strong> · ' +
+          '<span>' + escapeHtml(r.summary.unitTitle) + '</span>' +
+          '</div>' +
+          '<span class="font-mono" style="font-size:11.5px;color:#94A3B8;">객관식 ' + r.multipleChoice.length + ' · 단답 ' + r.shortAnswer.length + ' · 서술 ' + r.essay.length + '</span>' +
+          '</div>' +
+          (r.offlineNotice
+            ? '<div class="notice notice-info" style="margin-top:12px;margin-bottom:0;font-size:12px;">로컬 브라우저(단독 HTML) 모드로 실행 중입니다. 내장 학습 엔진으로 즉시 자료를 생성했으며, Vercel/서버 환경에 배포하면 AI 실시간 맞춤 출제가 자동 연동됩니다.</div>'
+            : '') +
+          '<div class="tab-bar" role="tablist">' +
+          '<button type="button" data-tab="summary" class="tab-btn ' + (state.activeTab === 'summary' ? 'active' : '') + '">핵심 요약정리</button>' +
+          '<button type="button" data-tab="multiple-choice" class="tab-btn ' + (state.activeTab === 'multiple-choice' ? 'active' : '') + '">객관식 (' + r.multipleChoice.length + ')</button>' +
+          '<button type="button" data-tab="constructed" class="tab-btn ' + (state.activeTab === 'constructed' ? 'active' : '') + '">단답·서술형 (' + (r.shortAnswer.length + r.essay.length) + ')</button>' +
+          '<button type="button" data-tab="review" class="tab-btn ' + (state.activeTab === 'review' ? 'active' : '') + '">복습 노트 (' + state.reviewItems.length + ')</button>' +
+          '</div></div>';
+
+        let tabContent = '';
+        if (state.activeTab === 'summary') tabContent = renderSummaryTab(r.summary);
+        else if (state.activeTab === 'multiple-choice') tabContent = renderMultipleChoiceTab(r.multipleChoice);
+        else if (state.activeTab === 'constructed') tabContent = renderConstructedTab(r.shortAnswer, r.essay);
+        else tabContent = renderReviewTab();
+
+        els.outputPanel.innerHTML = '<div class="stack-md">' + tabHeader + tabContent + '</div>';
+      }
+
+      function renderAll() {
+        renderInputControls();
+        renderOutputPanel();
+      }
+
+      /* ---------------- Actions ---------------- */
+      function loadSample() {
+        state.contentText = SAMPLE_EXAM_CONTENTS[state.subject] || SAMPLE_EXAM_CONTENTS['통합과학'];
+        state.pdfFile = null;
+        state.errorMessage = null;
+        state.sampleLoadedSubject = state.subject;
+        els.textarea.value = state.contentText;
+        showFileNotice(null, '');
+        renderAll();
+      }
+
+      function applyResult(data) {
+        state.result = data;
+        state.activeTab = 'summary';
+        state.summaryViewMode = 'table';
+        state.selectedChoices = {};
+        state.revealedAnswers = {};
+        state.shortDrafts = {};
+        state.shortRevealed = {};
+        state.shortHints = {};
+        state.essayDrafts = {};
+        state.essayRevealed = {};
+        state.reviewItems = [];
+        state.quizMode = false;
+        state.quizChoices = {};
+        state.quizRevealed = {};
+        state.quizDrafts = {};
+      }
+
+      async function generateExamPrep(overrideText) {
+        if (state.isGenerating) return;
+        const textToUse = overrideText !== undefined ? overrideText : state.contentText;
+        if (!textToUse.trim() && !state.pdfFile) {
+          state.errorMessage = '시험 범위 텍스트를 입력하거나 파일을 업로드해 주세요.';
+          renderInputControls();
+          return;
+        }
+
+        if (state.activeController) state.activeController.abort();
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        state.activeController = controller;
+
+        state.isGenerating = true;
+        state.errorMessage = null;
+        state.loadingStepIdx = 0;
+        if (state.loadingTimer) window.clearInterval(state.loadingTimer);
+        state.loadingTimer = window.setInterval(function () {
+          state.loadingStepIdx = (state.loadingStepIdx + 1) % LOADING_MESSAGES.length;
+          renderAll();
+        }, 2300);
+
+        renderAll();
+
+        try {
+          if (window.location.protocol === 'file:') {
+            await new Promise(function (resolve) { window.setTimeout(resolve, 450); });
+            applyResult(buildDynamicOfflinePack(state.subject, state.difficulty, textToUse, state.pdfFile));
+            return;
+          }
+
+          const resp = await fetch('/api/exam-prep', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            signal: controller ? controller.signal : undefined,
+            body: JSON.stringify({
+              subject: state.subject,
+              difficulty: state.difficulty,
+              contentText: textToUse,
+              pdfFile: state.pdfFile
+                ? { name: state.pdfFile.name, mimeType: state.pdfFile.mimeType, base64: state.pdfFile.base64 }
+                : null,
+            }),
+          });
+
+          const rawText = await resp.text();
+          let body = null;
+          try {
+            body = rawText ? JSON.parse(rawText) : null;
+          } catch (_) {
+            body = null;
+          }
+
+          // On static hosting (404/405) or missing server key fallback gracefully if desired, otherwise show server error
+          if ((resp.status === 404 || resp.status === 405) && !body) {
+            applyResult(buildDynamicOfflinePack(state.subject, state.difficulty, textToUse, state.pdfFile));
+            return;
+          }
+
+          if (!resp.ok) {
+            if (body && body.errorCode === 'GEMINI_API_KEY_MISSING') {
+              applyResult(buildDynamicOfflinePack(state.subject, state.difficulty, textToUse, state.pdfFile));
+              return;
+            }
+            throw new Error((body && body.error) || ('서버 응답 오류 (HTTP ' + resp.status + '). 잠시 후 다시 시도해 주세요.'));
+          }
+
+          if (!body) throw new Error('서버 응답을 해석하지 못했습니다. 다시 시도해 주세요.');
+          applyResult(body);
+
+          if (window.innerWidth < 1024) {
+            window.setTimeout(function () {
+              els.outputPanel.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+          if (window.location.protocol === 'file:' || (err && String(err.message).includes('Failed to fetch'))) {
+            applyResult(buildDynamicOfflinePack(state.subject, state.difficulty, textToUse, state.pdfFile));
+            return;
+          }
+          state.errorMessage = err instanceof Error ? err.message : '요청 처리 중 오류가 발생했습니다.';
+        } finally {
+          if (state.loadingTimer) {
+            window.clearInterval(state.loadingTimer);
+            state.loadingTimer = null;
+          }
+          state.isGenerating = false;
+          state.activeController = null;
+          renderAll();
+        }
+      }
+
+      function processSelectedFile(file) {
+        showFileNotice(null, '');
+        const ext = (file.name.split('.').pop() || '').trim().toLowerCase();
+        if (file.size === 0) {
+          showFileNotice('error', '선택한 파일(' + file.name + ')의 크기가 0바이트입니다.');
+          return;
+        }
+        if (ext === 'txt' || ext === 'md' || ext === 'csv' || (file.type && file.type.startsWith('text/'))) {
+          if (file.size > 5 * 1024 * 1024) {
+            showFileNotice('error', '텍스트 파일 용량이 5MB를 초과합니다.');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function () {
+            if (!(reader.result instanceof ArrayBuffer)) {
+              showFileNotice('error', '파일을 읽는 중 오류가 발생했습니다.');
+              return;
+            }
+            const decoded = decodeTextBuffer(reader.result).replace(/^\uFEFF/, '');
+            if (!decoded.trim()) {
+              showFileNotice('error', '선택한 파일에 읽을 수 있는 텍스트 내용이 없습니다.');
+              return;
+            }
+            state.contentText = decoded;
+            state.sampleLoadedSubject = null;
+            els.textarea.value = decoded;
+            showFileNotice('info', '\'' + file.name + '\' 파일의 내용을 아래 입력창에 불러왔습니다.');
+            renderInputControls();
+          };
+          reader.readAsArrayBuffer(file);
+          return;
+        }
+        if (ext === 'pdf' || file.type === 'application/pdf') {
+          if (file.size > 15 * 1024 * 1024) {
+            showFileNotice('error', 'PDF 파일 용량이 15MB를 초과합니다.');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function () {
+            const res = typeof reader.result === 'string' ? reader.result : '';
+            if (!res || !res.includes('base64,')) {
+              showFileNotice('error', 'PDF 파일을 읽지 못했습니다.');
+              return;
+            }
+            state.pdfFile = { name: file.name, size: file.size, mimeType: 'application/pdf', base64: res };
+            showFileNotice('info', '\'' + file.name + '\' PDF 문서를 첨부했습니다.');
+            renderInputControls();
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+        showFileNotice('error', '\'.' + (ext || '알 수 없는') + '\' 형식은 지원하지 않습니다. .txt, .md, .csv, .pdf 파일을 사용해 주세요.');
+      }
+
+      async function getCleanStandaloneHtml() {
+        if (window.location.protocol !== 'file:') {
+          try {
+            const resp = await fetch('/index.html', { cache: 'no-store' });
+            if (resp.ok) {
+              const raw = await resp.text();
+              if (raw && raw.indexOf('<!doctype html>') !== -1) {
+                return raw.replace(/<script[^>]*\/@vite\/client[^>]*><\/script>\s*/gi, '');
+              }
+            }
+          } catch (_) {}
+        }
+        return '<!doctype html>\n' + document.documentElement.outerHTML.replace(/<script[^>]*\/@vite\/client[^>]*><\/script>\s*/gi, '');
+      }
+
+      async function tryFetchText(path) {
+        if (window.location.protocol === 'file:') return null;
+        try {
+          const resp = await fetch(path, { cache: 'no-store' });
+          if (!resp.ok) return null;
+          const text = await resp.text();
+          // Guard against SPA HTML fallback
+          if (!text || text.trim().toLowerCase().startsWith('<!doctype html')) return null;
+          return text;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      async function downloadStandaloneHtml() {
+        try {
+          const htmlDoc = await getCleanStandaloneHtml();
+          const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'index.html';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        } catch (_) {}
+      }
+
+      async function exportGithubZip() {
+        if (state.exportStatus === 'downloading') return;
+        state.exportStatus = 'downloading';
+        updateExportButton();
+
+        try {
+          const htmlDoc = await getCleanStandaloneHtml();
+          const fallbackReadme =
+            '# 내신메이트 (NaesinMate)\n\n' +
+            '프레임워크(React/Vue/Svelte/Next.js/Vite) 및 npm/build/package.json/tsx 없이 단일 `index.html` 파일로 구성된 고등학교 내신 대비 요약·문제 출제기입니다.\n\n' +
+            '- 브라우저에서 `index.html`을 더블 클릭해 바로 실행할 수 있습니다.\n' +
+            '- GitHub 저장소에 올린 뒤 Vercel에서 별도 빌드 설정 없이 즉시 배포할 수 있습니다.\n';
+
+          const [readmeText, prdText, apiText, gitignoreText] = await Promise.all([
+            tryFetchText('/README.md'),
+            tryFetchText('/PRD.md'),
+            tryFetchText('/api/exam-prep.js'),
+            tryFetchText('/.gitignore'),
+          ]);
+
+          const entries = [
+            { name: 'index.html', content: htmlDoc },
+            { name: 'README.md', content: readmeText || fallbackReadme },
+            { name: '.gitignore', content: gitignoreText || '.DS_Store\n*.log\n.env*\n!.env.example\n' },
+          ];
+          if (prdText) entries.push({ name: 'PRD.md', content: prdText });
+          if (apiText) entries.push({ name: 'api/exam-prep.js', content: apiText });
+
+          const blob = buildStoreZip(entries);
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'naesin-mate-github.zip';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+
+          state.exportStatus = 'done';
+        } catch (_) {
+          state.exportStatus = 'error';
+        }
+
+        updateExportButton();
+        window.setTimeout(function () {
+          state.exportStatus = 'idle';
+          updateExportButton();
+        }, 2800);
+      }
+
+      function updateExportButton() {
+        const btn = els.btnExportGithub;
+        btn.className = 'btn ' + (state.exportStatus === 'done' ? 'btn-success' : state.exportStatus === 'error' ? 'btn-danger-outline' : 'btn-outline');
+        btn.disabled = state.exportStatus === 'downloading';
+        if (state.exportStatus === 'downloading') {
+          els.exportBtnIcon.innerHTML = ICONS.loader;
+          els.exportBtnLabel.textContent = '압축 중...';
+        } else if (state.exportStatus === 'done') {
+          els.exportBtnIcon.innerHTML = ICONS.check;
+          els.exportBtnLabel.textContent = 'ZIP 저장됨';
+        } else if (state.exportStatus === 'error') {
+          els.exportBtnIcon.innerHTML = '';
+          els.exportBtnLabel.textContent = '다운로드 실패';
+        } else {
+          els.exportBtnIcon.innerHTML = ICONS.download;
+          els.exportBtnLabel.textContent = 'GitHub 소스 (.zip)';
+        }
+      }
+
+      async function copyReviewAll() {
+        const text = buildCopyPayload();
+        let ok = false;
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          try {
+            await navigator.clipboard.writeText(text);
+            ok = true;
+          } catch (_) { ok = false; }
+        }
+        if (!ok) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (_) { ok = false; }
+        }
+        state.copyStatus = ok ? 'copied' : 'error';
+        renderOutputPanel();
+        window.setTimeout(function () {
+          state.copyStatus = 'idle';
+          renderOutputPanel();
+        }, 2500);
+      }
+
+      /* ---------------- Event Wiring ---------------- */
+      els.subjectGrid.addEventListener('click', function (e) {
+        const btn = e.target.closest('[data-subject]');
+        if (!btn || state.isGenerating) return;
+        state.subject = btn.getAttribute('data-subject');
+        if (state.sampleLoadedSubject && state.sampleLoadedSubject !== state.subject) {
+          state.sampleLoadedSubject = null;
+        }
+        renderAll();
+      });
+
+      els.difficultyGroup.addEventListener('click', function (e) {
+        const btn = e.target.closest('[data-difficulty]');
+        if (!btn || state.isGenerating) return;
+        state.difficulty = btn.getAttribute('data-difficulty');
+        renderInputControls();
+      });
+
+      els.textarea.addEventListener('input', function () {
+        state.contentText = els.textarea.value;
+        if (!state.contentText.trim()) state.sampleLoadedSubject = null;
+        renderInputControls();
+      });
+
+      els.btnClearText.addEventListener('click', function () {
+        state.contentText = '';
+        state.sampleLoadedSubject = null;
+        els.textarea.value = '';
+        showFileNotice(null, '');
+        renderInputControls();
+      });
+
+      els.btnLoadSample.addEventListener('click', loadSample);
+      els.btnGenerate.addEventListener('click', function () { void generateExamPrep(); });
+      els.btnDownloadHtml.addEventListener('click', function () { void downloadStandaloneHtml(); });
+      els.btnExportGithub.addEventListener('click', function () { void exportGithubZip(); });
+
+      els.btnHeaderAction.addEventListener('click', function (e) {
+        if (state.isGenerating) { e.preventDefault(); return; }
+        if (!state.contentText.trim() && !state.pdfFile) {
+          e.preventDefault();
+          loadSample();
+        }
+      });
+
+      els.navTabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (!state.result) return;
+          state.activeTab = btn.getAttribute('data-nav-tab');
+          renderOutputPanel();
+          els.outputPanel.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      els.btnPickFile.addEventListener('click', function () { els.fileInput.click(); });
+      els.fileInput.addEventListener('change', function () {
+        if (els.fileInput.files && els.fileInput.files[0]) processSelectedFile(els.fileInput.files[0]);
+        els.fileInput.value = '';
+      });
+
+      els.dropzone.addEventListener('dragover', function (e) { e.preventDefault(); els.dropzone.classList.add('dragging'); });
+      els.dropzone.addEventListener('dragleave', function () { els.dropzone.classList.remove('dragging'); });
+      els.dropzone.addEventListener('drop', function (e) {
+        e.preventDefault();
+        els.dropzone.classList.remove('dragging');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) processSelectedFile(e.dataTransfer.files[0]);
+      });
+
+      els.btnRemovePdf.addEventListener('click', function () {
+        state.pdfFile = null;
+        showFileNotice(null, '');
+        renderInputControls();
+      });
+
+      els.inputErrorBox.addEventListener('click', function (e) {
+        if (e.target.closest('#btn-retry-inline')) void generateExamPrep();
+      });
+
+      els.outputPanel.addEventListener('input', function (e) {
+        const shortInput = e.target.closest('[data-short-draft]');
+        if (shortInput) {
+          state.shortDrafts[shortInput.getAttribute('data-short-draft')] = shortInput.value;
+          return;
+        }
+        const essayInput = e.target.closest('[data-essay-draft]');
+        if (essayInput) {
+          state.essayDrafts[essayInput.getAttribute('data-essay-draft')] = essayInput.value;
+          return;
+        }
+        const quizInput = e.target.closest('[data-quiz-draft]');
+        if (quizInput) {
+          state.quizDrafts[quizInput.getAttribute('data-quiz-draft')] = quizInput.value;
+        }
+      });
+
+      els.outputPanel.addEventListener('click', function (e) {
+        const target = e.target;
+
+        if (target.closest('#btn-quick-sample')) {
+          loadSample();
+          void generateExamPrep(state.contentText);
+          return;
+        }
+
+        const tabBtn = target.closest('[data-tab]');
+        if (tabBtn) {
+          state.activeTab = tabBtn.getAttribute('data-tab');
+          renderOutputPanel();
+          return;
+        }
+
+        const viewBtn = target.closest('[data-summary-view]');
+        if (viewBtn) {
+          state.summaryViewMode = viewBtn.getAttribute('data-summary-view');
+          renderOutputPanel();
+          return;
+        }
+
+        const saveConceptBtn = target.closest('[data-save-concept]');
+        if (saveConceptBtn && state.result) {
+          const idx = Number(saveConceptBtn.getAttribute('data-save-concept'));
+          const c = state.result.summary.keyConcepts[idx];
+          if (c) {
+            const cid = 'concept-' + idx;
+            toggleSaveItem(cid, function () {
+              return { id: cid, reason: 'manual-save', title: '핵심 개념 · ' + c.term, conceptTag: c.category, source: { kind: 'concept', concept: c } };
+            });
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        const choiceBtn = target.closest('[data-mc-id]');
+        if (choiceBtn) {
+          const id = choiceBtn.getAttribute('data-mc-id');
+          if (!state.revealedAnswers[id]) {
+            state.selectedChoices[id] = Number(choiceBtn.getAttribute('data-choice-idx'));
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        const toggleMcBtn = target.closest('[data-toggle-mc]');
+        if (toggleMcBtn && state.result) {
+          const id = toggleMcBtn.getAttribute('data-toggle-mc');
+          const next = !state.revealedAnswers[id];
+          state.revealedAnswers[id] = next;
+          const q = state.result.multipleChoice.find(function (item) { return item.id === id; });
+          if (next && q && state.selectedChoices[id] !== undefined && state.selectedChoices[id] !== q.correctIndex) {
+            upsertWrongAnswer(q, state.selectedChoices[id]);
+          }
+          renderOutputPanel();
+          return;
+        }
+
+        const saveMcBtn = target.closest('[data-save-mc]');
+        if (saveMcBtn && state.result) {
+          const id = saveMcBtn.getAttribute('data-save-mc');
+          const q = state.result.multipleChoice.find(function (item) { return item.id === id; });
+          if (q) {
+            const sel = state.selectedChoices[id];
+            const isWrong = Boolean(state.revealedAnswers[id] && sel !== undefined && sel !== q.correctIndex);
+            toggleSaveItem(id, function () {
+              return { id: id, reason: isWrong ? 'wrong-answer' : 'manual-save', title: '객관식 · ' + q.questionType, conceptTag: q.relatedConcept, source: { kind: 'mc', question: q, userWrongChoice: isWrong ? sel : undefined } };
+            });
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        if (target.closest('#btn-mc-reset')) {
+          state.selectedChoices = {};
+          state.revealedAnswers = {};
+          renderOutputPanel();
+          return;
+        }
+
+        if (target.closest('#btn-mc-reveal-all') && state.result) {
+          state.result.multipleChoice.forEach(function (q) {
+            state.revealedAnswers[q.id] = true;
+            if (state.selectedChoices[q.id] !== undefined && state.selectedChoices[q.id] !== q.correctIndex) {
+              upsertWrongAnswer(q, state.selectedChoices[q.id]);
+            }
+          });
+          renderOutputPanel();
+          return;
+        }
+
+        const hintBtn = target.closest('[data-toggle-hint]');
+        if (hintBtn) {
+          const id = hintBtn.getAttribute('data-toggle-hint');
+          state.shortHints[id] = !state.shortHints[id];
+          renderOutputPanel();
+          return;
+        }
+
+        const shortBtn = target.closest('[data-toggle-short]');
+        if (shortBtn) {
+          const id = shortBtn.getAttribute('data-toggle-short');
+          state.shortRevealed[id] = !state.shortRevealed[id];
+          renderOutputPanel();
+          return;
+        }
+
+        const saveShortBtn = target.closest('[data-save-short]');
+        if (saveShortBtn && state.result) {
+          const id = saveShortBtn.getAttribute('data-save-short');
+          const q = state.result.shortAnswer.find(function (item) { return item.id === id; });
+          if (q) {
+            toggleSaveItem(id, function () {
+              return { id: id, reason: 'manual-save', title: '단답형 문항', conceptTag: q.relatedConcept, source: { kind: 'short', question: q } };
+            });
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        const essayBtn = target.closest('[data-toggle-essay]');
+        if (essayBtn) {
+          const id = essayBtn.getAttribute('data-toggle-essay');
+          state.essayRevealed[id] = !state.essayRevealed[id];
+          renderOutputPanel();
+          return;
+        }
+
+        const saveEssayBtn = target.closest('[data-save-essay]');
+        if (saveEssayBtn && state.result) {
+          const id = saveEssayBtn.getAttribute('data-save-essay');
+          const q = state.result.essay.find(function (item) { return item.id === id; });
+          if (q) {
+            toggleSaveItem(id, function () {
+              return { id: id, reason: 'manual-save', title: '서술형 문항', conceptTag: q.relatedConcept, source: { kind: 'essay', question: q } };
+            });
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        if (target.closest('#btn-start-quiz')) {
+          state.quizChoices = {};
+          state.quizRevealed = {};
+          state.quizDrafts = {};
+          state.quizMode = true;
+          renderOutputPanel();
+          return;
+        }
+
+        if (target.closest('#btn-quiz-reset')) {
+          state.quizChoices = {};
+          state.quizRevealed = {};
+          state.quizDrafts = {};
+          renderOutputPanel();
+          return;
+        }
+
+        if (target.closest('#btn-quiz-exit')) {
+          state.quizMode = false;
+          renderOutputPanel();
+          return;
+        }
+
+        const quizChoiceBtn = target.closest('[data-quiz-mc]');
+        if (quizChoiceBtn) {
+          const id = quizChoiceBtn.getAttribute('data-quiz-mc');
+          if (!state.quizRevealed[id]) {
+            state.quizChoices[id] = Number(quizChoiceBtn.getAttribute('data-choice-idx'));
+            renderOutputPanel();
+          }
+          return;
+        }
+
+        const quizRevealBtn = target.closest('[data-quiz-reveal]');
+        if (quizRevealBtn) {
+          const id = quizRevealBtn.getAttribute('data-quiz-reveal');
+          state.quizRevealed[id] = !state.quizRevealed[id];
+          renderOutputPanel();
+          return;
+        }
+
+        if (target.closest('#btn-copy-all')) {
+          void copyReviewAll();
+          return;
+        }
+
+        if (target.closest('#btn-clear-review')) {
+          state.reviewItems = [];
+          renderOutputPanel();
+          return;
+        }
+
+        const removeRevBtn = target.closest('[data-remove-review]');
+        if (removeRevBtn) {
+          const id = removeRevBtn.getAttribute('data-remove-review');
+          state.reviewItems = state.reviewItems.filter(function (item) { return item.id !== id; });
+          renderOutputPanel();
+        }
+      });
+
+      /* ---------------- Boot ---------------- */
+      document.getElementById('sample-btn-icon').innerHTML = ICONS.book;
+      document.getElementById('upload-icon-box').innerHTML = ICONS.upload;
+      updateExportButton();
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
